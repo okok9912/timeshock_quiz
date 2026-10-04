@@ -8,232 +8,238 @@
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:#050505;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
-body{display:flex;justify-content:center}
-button,input,textarea{font:inherit}
-.app{width:min(100%,900px);min-height:100vh;padding:20px 16px 32px}
-.hidden{display:none!important}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
-.logo{font-weight:900;letter-spacing:.12em;font-size:clamp(22px,5vw,38px);font-style:italic}
-.badge{font-size:12px;border:1px solid #555;border-radius:999px;padding:5px 10px;color:#bbb}
-.card{background:#101010;border:1px solid #292929;border-radius:18px;padding:22px;box-shadow:0 15px 45px #000}
-h1,h2,p{margin-top:0}
-h1{font-size:clamp(32px,9vw,72px);margin-bottom:8px;letter-spacing:.05em;font-style:italic;text-align:center}
-.subtitle{text-align:center;color:#aaa;margin-bottom:28px}
-.btn{border:0;border-radius:12px;padding:13px 18px;background:#fff;color:#000;font-weight:800;cursor:pointer;transition:.15s;min-height:48px}
-.btn:hover{transform:translateY(-1px)}
-.btn.secondary{background:#202020;color:#fff;border:1px solid #3a3a3a}
-.btn.danger{background:#5c1515;color:#fff}
-.btn:disabled{opacity:.45;cursor:not-allowed}
+body{display:flex;justify-content:center}.app{width:min(100%,980px);min-height:100vh;padding:16px 14px 28px}
+button,input,textarea,select{font:inherit}.hidden{display:none!important}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.logo{font-weight:1000;letter-spacing:.1em;font-size:clamp(22px,5vw,38px);font-style:italic}
+.badge{font-size:11px;border:1px solid #555;border-radius:999px;padding:5px 9px;color:#bbb;white-space:nowrap}
+.card{background:#101010;border:1px solid #292929;border-radius:18px;padding:20px;box-shadow:0 15px 45px #000}
+h1,h2,p{margin-top:0}h1{font-size:clamp(34px,9vw,72px);margin-bottom:8px;letter-spacing:.05em;font-style:italic;text-align:center}
+.subtitle{text-align:center;color:#aaa;margin-bottom:26px}.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+.setting{background:#171717;border-radius:12px;padding:13px;text-align:center}.setting strong{display:block;font-size:22px;margin-top:3px}
 .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
-.setting{background:#171717;border-radius:12px;padding:14px}
-.setting strong{display:block;font-size:22px;margin-top:3px}
-label{display:block;color:#aaa;font-size:13px;margin-bottom:6px}
-input,textarea{width:100%;background:#090909;color:#fff;border:1px solid #444;border-radius:9px;padding:10px;outline:none}
-textarea{min-height:78px;resize:vertical}
-.question-screen{min-height:calc(100vh - 80px);display:flex;flex-direction:column}
-.progress{display:flex;justify-content:space-between;color:#aaa;font-size:14px;margin-bottom:10px}
-.timer-wrap{height:12px;background:#222;border-radius:999px;overflow:hidden;margin-bottom:22px}
-.timer{height:100%;width:100%;background:#fff;transform-origin:left center}
-.timer.danger{background:#e33}
-.qbox{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px 0}
-.qtext{font-size:clamp(28px,6vw,52px);font-weight:800;line-height:1.35;max-width:820px;margin-bottom:30px}
-.answer-row{display:flex;gap:10px;width:min(680px,100%);margin:auto}
-.answer-row input{font-size:22px;text-align:center;height:58px}
-.feedback{min-height:48px;text-align:center;font-weight:800;font-size:20px;margin-top:14px}
-.feedback.ok{color:#7cff9b}.feedback.ng{color:#ff6868}
+.btn{border:0;border-radius:12px;padding:13px 18px;background:#fff;color:#000;font-weight:900;cursor:pointer;min-height:48px}
+.btn.secondary{background:#202020;color:#fff;border:1px solid #3a3a3a}.btn.danger{background:#5c1515;color:#fff}
+.game{min-height:calc(100vh - 64px);display:flex;flex-direction:column}
+.progress{display:flex;justify-content:space-between;color:#aaa;font-size:14px;margin-bottom:9px}
+.timer-wrap{height:13px;background:#222;border-radius:999px;overflow:hidden;margin-bottom:20px}
+.timer{height:100%;width:100%;background:#fff}.timer.danger{background:#e33}
+.qbox{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.qtext{font-size:clamp(27px,6vw,54px);font-weight:900;line-height:1.3;max-width:900px;margin:0 auto 28px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:min(820px,100%)}
+.choice{border:2px solid #444;background:#181818;color:#fff;border-radius:16px;min-height:82px;padding:14px 12px;font-size:clamp(18px,4vw,28px);font-weight:850;cursor:pointer}
+.choice:active{transform:scale(.97)}.choice:disabled{cursor:default}
+.choice.correct{background:#0d5b2a;border-color:#62ff9a}.choice.wrong{background:#6a1616;border-color:#ff6767}.choice.timeout{background:#4a3510;border-color:#ffc857}
+.feedback{min-height:42px;text-align:center;font-weight:900;font-size:22px;margin-top:12px}
+.feedback.ok{color:#7cff9b}.feedback.ng{color:#ff6868}.feedback.to{color:#ffd166}
 .countdown{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:10}
 .count-number{font-size:clamp(90px,30vw,260px);font-weight:1000;font-style:italic}
-.flash{animation:flash .45s}
-@keyframes flash{50%{filter:brightness(3)}}
-.shock{font-size:clamp(44px,12vw,110px);font-weight:1000;font-style:italic;letter-spacing:.03em;text-align:center;animation:shock .8s}
-@keyframes shock{0%{transform:scale(.4) rotate(-8deg);opacity:0}60%{transform:scale(1.08) rotate(2deg)}100%{transform:scale(1);opacity:1}}
-.score{font-size:clamp(70px,20vw,150px);font-weight:1000;text-align:center;line-height:1}
-.big{font-size:22px;text-align:center}
-.result-list{max-height:300px;overflow:auto;margin:20px 0}
-.result-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #292929}
-.admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-.form-grid{display:grid;gap:12px}
-.question-list{margin-top:18px;display:grid;gap:8px}
-.qitem{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;background:#171717;border-radius:10px}
-.qitem small{color:#aaa}
-@media(max-width:600px){
- .app{padding:14px 12px 24px}.card{padding:16px;border-radius:14px}.settings{grid-template-columns:1fr}
- .answer-row{flex-direction:column}.answer-row .btn{width:100%}
-}
+.shock{font-size:clamp(44px,12vw,110px);font-weight:1000;font-style:italic;text-align:center}
+.score{font-size:clamp(70px,20vw,150px);font-weight:1000;text-align:center;line-height:1}.big{font-size:21px;text-align:center}
+.result-list{max-height:330px;overflow:auto;margin:20px 0}.result-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #292929}.result-item small{color:#aaa}
+.admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.form-grid{display:grid;gap:12px}
+label{display:block;color:#aaa;font-size:13px;margin-bottom:6px}
+input,textarea,select{width:100%;background:#090909;color:#fff;border:1px solid #444;border-radius:9px;padding:10px;outline:none}
+textarea{min-height:70px;resize:vertical}.question-list{margin-top:18px;display:grid;gap:8px}
+.qitem{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;background:#171717;border-radius:10px}.qitem small{color:#aaa}
+.hint{color:#888;font-size:13px;text-align:center;margin-top:12px}
+.notice{background:#171717;border:1px solid #333;border-radius:10px;padding:10px;color:#aaa;font-size:13px;line-height:1.5}
+@media(max-width:600px){.app{padding:12px 10px 22px}.card{padding:15px}.settings{grid-template-columns:1fr}.choice-grid{gap:9px}.choice{min-height:78px;padding:10px 7px}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="topbar">
-    <div class="logo">TIME SHOCK!</div>
-    <div class="badge">10 QUESTIONS / 5 SEC</div>
-  </div>
+<div class="topbar"><div class="logo">TIME SHOCK!</div><div class="badge">10 QUESTIONS / 5 SEC</div></div>
 
-  <section id="home" class="card">
-    <h1>TIME SHOCK!</h1>
-    <p class="subtitle">5秒以内に答えろ。10問連続正解を目指せ！</p>
-    <div class="settings">
-      <div class="setting"><label>問題数</label><strong>10問</strong></div>
-      <div class="setting"><label>制限時間</label><strong>5秒 / 問</strong></div>
-    </div>
-    <div class="actions">
-      <button class="btn" id="startBtn">GAME START</button>
-      <button class="btn secondary" id="manageBtn">問題を登録・管理</button>
-    </div>
-  </section>
+<section id="home" class="card">
+<h1>TIME SHOCK!</h1><p class="subtitle">5秒以内に正解をタップしろ。10問連続で挑戦！</p>
+<div class="settings"><div class="setting"><label>問題数</label><strong>10問</strong></div><div class="setting"><label>制限時間</label><strong>5秒 / 問</strong></div></div>
+<div class="actions"><button class="btn" id="startBtn">GAME START</button><button class="btn secondary" id="manageBtn">問題を登録・管理</button></div>
+<p class="hint">4択をタップするだけ。選択肢は毎回ランダムに変化します。</p>
+</section>
 
-  <section id="admin" class="card hidden">
-    <div class="admin-head">
-      <h2>問題登録</h2>
-      <button class="btn secondary" id="backHomeBtn">戻る</button>
-    </div>
-    <div class="form-grid">
-      <div><label>問題文</label><textarea id="questionInput" placeholder="例：日本の首都は？"></textarea></div>
-      <div><label>正解（入力文字列と完全一致ではなく、空白・大小文字などを整えて比較します）</label><input id="answerInput" placeholder="例：東京"></div>
-      <div class="actions" style="justify-content:flex-start">
-        <button class="btn" id="addBtn">問題を追加</button>
-        <button class="btn secondary" id="sampleBtn">サンプル問題を追加</button>
-        <button class="btn danger" id="clearBtn">全削除</button>
-      </div>
-    </div>
-    <div id="questionList" class="question-list"></div>
-  </section>
+<section id="admin" class="card hidden">
+<div class="admin-head"><h2>問題登録</h2><button class="btn secondary" id="backHomeBtn">戻る</button></div>
+<div class="notice">数値の正解（例：3776m、2020年、47）なら、不正解選択肢を毎回自動生成します。それ以外は登録した不正解候補から毎回ランダムに3つ選びます。</div>
+<div class="form-grid" style="margin-top:14px">
+<div><label>問題文</label><textarea id="questionInput" placeholder="例：富士山の高さは？"></textarea></div>
+<div><label>正解</label><input id="answerInput" placeholder="例：3776m"></div>
+<div><label>不正解候補（最大6個・数値問題では不要）</label><input id="wrongInput1" placeholder="例：阿蘇山"></div>
+<div><input id="wrongInput2" placeholder="例：北岳"></div><div><input id="wrongInput3" placeholder="例：奥穂高岳"></div>
+<div><input id="wrongInput4" placeholder="不正解候補4（任意）"></div><div><input id="wrongInput5" placeholder="不正解候補5（任意）"></div><div><input id="wrongInput6" placeholder="不正解候補6（任意）"></div>
+<div class="actions"><button class="btn" id="addBtn">問題を追加</button><button class="btn secondary" id="sampleBtn">サンプル問題を追加</button><button class="btn danger" id="clearBtn">全削除</button></div>
+</div><div id="questionList" class="question-list"></div>
+</section>
 
-  <section id="game" class="question-screen hidden">
-    <div class="progress"><span id="progressText">1 / 10</span><span id="scoreText">SCORE 0</span></div>
-    <div class="timer-wrap"><div id="timerBar" class="timer"></div></div>
-    <div class="qbox">
-      <div id="questionText" class="qtext"></div>
-      <div class="answer-row">
-        <input id="answerBox" autocomplete="off" autocapitalize="off" placeholder="答えを入力">
-        <button class="btn" id="answerBtn">ANSWER</button>
-      </div>
-      <div id="feedback" class="feedback"></div>
-    </div>
-  </section>
+<section id="game" class="game hidden">
+<div class="progress"><span id="progressText">1 / 10</span><span id="scoreText">SCORE 0</span></div>
+<div class="timer-wrap"><div id="timerBar" class="timer"></div></div>
+<div class="qbox"><div id="questionText" class="qtext"></div><div id="choiceGrid" class="choice-grid"></div><div id="feedback" class="feedback"></div></div>
+</section>
 
-  <section id="result" class="card hidden">
-    <div id="shockTitle" class="shock">TIME SHOCK!</div>
-    <p class="big" id="resultMessage"></p>
-    <div id="finalScore" class="score">0 / 10</div>
-    <div id="resultList" class="result-list"></div>
-    <div class="actions">
-      <button class="btn" id="againBtn">もう一度</button>
-      <button class="btn secondary" id="resultHomeBtn">ホームへ</button>
-    </div>
-  </section>
+<section id="result" class="card hidden">
+<div class="shock">TIME SHOCK!</div><p class="big" id="resultMessage"></p><div id="finalScore" class="score">0 / 10</div><div class="big" id="averageTime"></div>
+<div id="resultList" class="result-list"></div><div class="actions"><button class="btn" id="againBtn">もう一度</button><button class="btn secondary" id="resultHomeBtn">ホームへ</button></div>
+</section>
 </div>
-
 <div id="countdown" class="countdown hidden"><div id="countNumber" class="count-number">3</div></div>
 
 <script>
-const KEY="timeShockQuestionsV1";
+const KEY="timeShockQuestionsV3";
 const defaultQuestions=[
- {q:"日本の首都は？",a:"東京"},
- {q:"1年は何か月？",a:"12"},
- {q:"富士山の標高は約何m？",a:"3776"},
- {q:"日本で一番大きい都道府県は？",a:"北海道"},
- {q:"英語で「猫」は？",a:"cat"},
- {q:"太陽系で地球のひとつ外側を回る惑星は？",a:"火星"},
- {q:"水の化学式は？",a:"H2O"},
- {q:"7×8は？",a:"56"},
- {q:"日本の国鳥は？",a:"キジ"},
- {q:"「吾輩は猫である」の作者は？",a:"夏目漱石"},
- {q:"大阪府の府庁所在地は？",a:"大阪市"},
- {q:"虹は通常何色とされる？",a:"7"},
- {q:"世界で最も面積が大きい国は？",a:"ロシア"},
- {q:"地球が太陽の周りを1周するのに約何日？",a:"365"},
- {q:"「ありがとう」を英語で？",a:"thank you"}
+{q:"富士山の高さは？",a:"3776m",o:[],type:"numeric"},
+{q:"1年は何か月？",a:"12",o:[],type:"numeric"},
+{q:"日本で一番大きい都道府県は？",a:"北海道",o:["岩手県","長野県","福島県","新潟県","岐阜県","秋田県"],type:"pool"},
+{q:"英語で「猫」は？",a:"cat",o:["dog","bird","fish","horse","rabbit","mouse"],type:"pool"},
+{q:"地球のひとつ外側を回る惑星は？",a:"火星",o:["金星","木星","水星","土星","海王星","天王星"],type:"pool"},
+{q:"水の化学式は？",a:"H2O",o:["CO2","O2","NaCl","CH4","H2","O3"],type:"pool"},
+{q:"7×8は？",a:"56",o:[],type:"numeric"},
+{q:"日本の国鳥は？",a:"キジ",o:["タンチョウ","スズメ","カラス","ハト","ツバメ","ウグイス"],type:"pool"},
+{q:"「吾輩は猫である」の作者は？",a:"夏目漱石",o:["芥川龍之介","太宰治","森鴎外","川端康成","宮沢賢治","谷崎潤一郎"],type:"pool"},
+{q:"大阪府の府庁所在地は？",a:"大阪市",o:["堺市","東大阪市","豊中市","枚方市","吹田市","高槻市"],type:"pool"},
+{q:"虹は通常何色とされる？",a:"7",o:[],type:"numeric"},
+{q:"世界で最も面積が大きい国は？",a:"ロシア",o:["カナダ","中国","アメリカ","ブラジル","オーストラリア","インド"],type:"pool"},
+{q:"地球が太陽の周りを1周するのに約何日？",a:"365日",o:[],type:"numeric"},
+{q:"「ありがとう」を英語で？",a:"thank you",o:["good morning","sorry","welcome","good night","please","hello"],type:"pool"},
+{q:"東京オリンピックが開催された年は？",a:"2020年",o:[],type:"numeric"}
 ];
 
-let questions=loadQuestions();
-let gameQuestions=[], current=0, score=0, answered=false, timerId=null, startTime=0, results=[];
+let questions=loadQuestions(),gameQuestions=[],current=0,score=0,answered=false,timerId=null,startTime=0,results=[];
 const $=id=>document.getElementById(id);
-function loadQuestions(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)&&x.length?x:defaultQuestions.slice()}catch{return defaultQuestions.slice()}}
+function loadQuestions(){try{const x=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(x)&&x.length)return x}catch(e){}return defaultQuestions.slice()}
 function saveQuestions(){localStorage.setItem(KEY,JSON.stringify(questions))}
 function show(id){["home","admin","game","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id))}
-function normalize(s){return String(s??"").trim().toLowerCase().replace(/[ 　]/g,"").replace(/[。、！？!?.,]/g,"")}
 function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
-function beep(freq,duration,type="sine",volume=.06){
-  try{const C=window.AudioContext||window.webkitAudioContext; if(!C)return;
-    const ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.value=freq;
-    g.gain.setValueAtTime(volume,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration);
-    o.connect(g).connect(ctx.destination);o.start();o.stop(ctx.currentTime+duration);
-  }catch(e){}
-}
-function correctSound(){beep(880,.12,"sine",.07);setTimeout(()=>beep(1320,.16,"sine",.07),80)}
-function wrongSound(){beep(180,.25,"sawtooth",.05)}
-function timeoutSound(){beep(120,.4,"square",.05)}
+function beep(f,d,t="sine",v=.06){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.connect(g).connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
+function correctSound(){beep(880,.1);setTimeout(()=>beep(1320,.13),70)}
+function wrongSound(){beep(180,.25,"sawtooth",.05)}function timeoutSound(){beep(120,.35,"square",.05)}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 
-function renderQuestions(){
-  const list=$("questionList"); list.innerHTML="";
-  questions.forEach((x,i)=>{
-    const d=document.createElement("div");d.className="qitem";
-    d.innerHTML=`<div><div>${escapeHtml(x.q)}</div><small>正解：${escapeHtml(x.a)}</small></div><button class="btn danger" data-i="${i}" style="min-height:40px;padding:8px 12px">削除</button>`;
-    list.appendChild(d);
-  });
-  list.querySelectorAll("button").forEach(b=>b.onclick=()=>{questions.splice(+b.dataset.i,1);saveQuestions();renderQuestions()});
+function parseNumber(s){
+ const m=String(s).replace(/,/g,"").match(/[-+]?\d+(?:\.\d+)?/);
+ return m?Number(m[0]):null;
 }
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function numericDistractors(answer){
+ const n=parseNumber(answer);
+ if(n===null||!isFinite(n))return null;
+ const original=String(answer), m=original.replace(/,/g,"").match(/[-+]?\d+(?:\.\d+)?/);
+ if(!m)return null;
+ const prefix=original.slice(0,m.index), suffix=original.slice(m.index+m[0].length);
+ const decimals=(m[0].split(".")[1]||"").length;
+ const integer=Math.abs(n)>=1 && Number.isInteger(n);
+ const base=Math.max(Math.abs(n)*0.03,integer?1:Math.pow(10,-decimals));
+ const vals=new Set();
+ let tries=0;
+ while(vals.size<3&&tries<100){
+  tries++;
+  let delta=base*(1.0+Math.random()*4.0)*(Math.random()<.5?-1:1);
+  let v=n+delta;
+  if(integer)v=Math.round(v);
+  else v=Number(v.toFixed(decimals));
+  if(v===n||v<=0)continue;
+  vals.add(v);
+ }
+ if(vals.size<3)return null;
+ const format=v=>{
+  let s=integer?String(Math.round(v)):v.toFixed(decimals);
+  if(m[0].includes(","))s=Number(s).toLocaleString("en-US",{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
+  return prefix+s+suffix;
+ };
+ return [...vals].map(format);
+}
+function makeChoices(item){
+ let wrong;
+ if(item.type==="numeric" || (!item.type && parseNumber(item.a)!==null && (!item.o||item.o.length<3))){
+   wrong=numericDistractors(item.a);
+ }
+ if(!wrong){
+   const pool=Array.isArray(item.o)?item.o.filter(x=>x&&x!==item.a):[];
+   wrong=shuffle(pool).slice(0,3);
+ }
+ if(wrong.length<3)return null;
+ return shuffle([item.a,...wrong.slice(0,3)]);
+}
 
 $("manageBtn").onclick=()=>{show("admin");renderQuestions()}
 $("backHomeBtn").onclick=()=>show("home")
-$("addBtn").onclick=()=>{
- const q=$("questionInput").value.trim(),a=$("answerInput").value.trim();
- if(!q||!a){alert("問題文と正解を入力してください。");return}
- questions.push({q,a});saveQuestions();$("questionInput").value="";$("answerInput").value="";renderQuestions()
-}
-$("sampleBtn").onclick=()=>{questions.push(...defaultQuestions);saveQuestions();renderQuestions()}
-$("clearBtn").onclick=()=>{if(confirm("登録した問題をすべて削除しますか？")){questions=[];saveQuestions();renderQuestions()}}
 $("startBtn").onclick=startGame
 $("againBtn").onclick=startGame
 $("resultHomeBtn").onclick=()=>show("home")
 
-async function startGame(){
- if(questions.length<10){alert("ゲームには10問以上の問題が必要です。問題を10問以上登録してください。");return}
- show("home");$("countdown").classList.remove("hidden");
- for(let n=3;n>=1;n--){$("countNumber").textContent=n;beep(n===1?880:660,.13);await wait(700)}
- $("countNumber").textContent="GO!";beep(1200,.2);await wait(450);$("countdown").classList.add("hidden");
- gameQuestions=shuffle(questions).slice(0,10);current=0;score=0;results=[];show("game");nextQuestion()
+$("addBtn").onclick=()=>{
+ const q=$("questionInput").value.trim(),a=$("answerInput").value.trim();
+ const o=[1,2,3,4,5,6].map(i=>$("wrongInput"+i).value.trim()).filter(Boolean);
+ const numeric=parseNumber(a)!==null;
+ if(!q||!a){alert("問題文と正解を入力してください。");return}
+ if(!numeric && o.length<3){alert("数値問題ではない場合、不正解候補を3つ以上入力してください。");return}
+ if(new Set([a,...o]).size<Math.min(4,1+o.length)){alert("重複した選択肢があります。");return}
+ questions.push({q,a,o,type:numeric?"numeric":"pool"});saveQuestions();
+ ["questionInput","answerInput","wrongInput1","wrongInput2","wrongInput3","wrongInput4","wrongInput5","wrongInput6"].forEach(id=>$(id).value="");
+ renderQuestions();
 }
-function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+$("sampleBtn").onclick=()=>{questions.push(...defaultQuestions);saveQuestions();renderQuestions()}
+$("clearBtn").onclick=()=>{if(confirm("登録した問題をすべて削除しますか？")){questions=[];saveQuestions();renderQuestions()}}
+
+function renderQuestions(){
+ const l=$("questionList");l.innerHTML="";
+ questions.forEach((x,i)=>{
+  const mode=x.type==="numeric"||(!x.type&&parseNumber(x.a)!==null&&(!x.o||x.o.length<3))?"数値自動生成":"候補からランダム";
+  const d=document.createElement("div");d.className="qitem";
+  d.innerHTML=`<div><div>${esc(x.q)}</div><small>正解：${esc(x.a)} / ${mode}</small></div><button class="btn danger" data-i="${i}" style="min-height:40px;padding:8px 12px">削除</button>`;
+  l.appendChild(d);
+ });
+ l.querySelectorAll("button").forEach(b=>b.onclick=()=>{questions.splice(+b.dataset.i,1);saveQuestions();renderQuestions()});
+}
+
+async function startGame(){
+ if(questions.length<10){alert("ゲームには10問以上の問題が必要です。");return}
+ const usable=questions.filter(q=>makeChoices(q));
+ if(usable.length<10){alert("4択を作れない問題があります。各問題に正解＋不正解候補3つ以上を登録してください。");return}
+ $("countdown").classList.remove("hidden");
+ for(let n=3;n>=1;n--){$("countNumber").textContent=n;beep(n===1?880:660,.13);await wait(650)}
+ $("countNumber").textContent="GO!";beep(1200,.18);await wait(400);$("countdown").classList.add("hidden");
+ gameQuestions=shuffle(usable).slice(0,10);current=0;score=0;results=[];show("game");nextQuestion();
+}
 function nextQuestion(){
  if(current>=10){finishGame();return}
  answered=false;$("feedback").textContent="";$("feedback").className="feedback";
  $("progressText").textContent=`${current+1} / 10`;$("scoreText").textContent=`SCORE ${score}`;
- $("questionText").textContent=gameQuestions[current].q;
- $("answerBox").value="";$("answerBox").disabled=false;$("answerBtn").disabled=false;
- $("answerBox").focus();startTimer()
+ const item=gameQuestions[current], choices=makeChoices(item);
+ $("questionText").textContent=item.q;
+ const grid=$("choiceGrid");grid.innerHTML="";
+ choices.forEach(text=>{const b=document.createElement("button");b.className="choice";b.textContent=text;b.onclick=()=>submitAnswer(text,b);grid.appendChild(b)});
+ startTimer();
 }
 function startTimer(){
- clearInterval(timerId);startTime=performance.now();$("timerBar").classList.remove("danger");
+ clearInterval(timerId);startTime=performance.now();$("timerBar").style.width="100%";$("timerBar").classList.remove("danger");
  timerId=setInterval(()=>{
-  const elapsed=performance.now()-startTime,ratio=Math.max(0,1-elapsed/5000);
-  $("timerBar").style.width=(ratio*100)+"%";
-  if(ratio<.3)$("timerBar").classList.add("danger");
-  if(ratio<=0){clearInterval(timerId);submitAnswer(true)}
- },30)
+  const r=Math.max(0,1-(performance.now()-startTime)/5000);
+  $("timerBar").style.width=r*100+"%";if(r<.3)$("timerBar").classList.add("danger");
+  if(r<=0){clearInterval(timerId);submitAnswer(null,null,true)}
+ },25);
 }
-function submitAnswer(timeout=false){
+function submitAnswer(value,button,timeout=false){
  if(answered)return;answered=true;clearInterval(timerId);
- const item=gameQuestions[current], user=$("answerBox").value.trim();
- const ok=!timeout && normalize(user)===normalize(item.a);
- results.push({q:item.q,user:user||"（時間切れ）",a:item.a,ok});
- $("answerBox").disabled=true;$("answerBtn").disabled=true;
- if(ok){score++;$("feedback").textContent="CORRECT!";$("feedback").className="feedback ok";correctSound()}
- else{$("feedback").textContent=timeout?"TIME OUT!":"INCORRECT!";$("feedback").className="feedback ng";timeout?timeoutSound():wrongSound()}
- $("scoreText").textContent=`SCORE ${score}`;
- setTimeout(()=>{current++;nextQuestion()},650)
+ const item=gameQuestions[current],ok=!timeout&&value===item.a,t=Math.min(5,(performance.now()-startTime)/1000);
+ results.push({q:item.q,user:value||"時間切れ",a:item.a,ok,time:t});
+ document.querySelectorAll(".choice").forEach(b=>b.disabled=true);
+ if(timeout){
+  document.querySelectorAll(".choice").forEach(b=>{if(b.textContent===item.a)b.classList.add("timeout")});
+  $("feedback").textContent="TIME OUT!";$("feedback").className="feedback to";timeoutSound();
+ }else if(ok){
+  score++;button.classList.add("correct");$("feedback").textContent="CORRECT!";$("feedback").className="feedback ok";correctSound();
+ }else{
+  button.classList.add("wrong");document.querySelectorAll(".choice").forEach(b=>{if(b.textContent===item.a)b.classList.add("correct")});
+  $("feedback").textContent="INCORRECT!";$("feedback").className="feedback ng";wrongSound();
+ }
+ $("scoreText").textContent=`SCORE ${score}`;setTimeout(()=>{current++;nextQuestion()},550);
 }
-$("answerBtn").onclick=()=>submitAnswer(false)
-$("answerBox").addEventListener("keydown",e=>{if(e.key==="Enter")submitAnswer(false)})
-
 function finishGame(){
- clearInterval(timerId);show("result");
- $("finalScore").textContent=`${score} / 10`;
+ show("result");$("finalScore").textContent=`${score} / 10`;
+ const avg=results.reduce((s,r)=>s+r.time,0)/results.length;$("averageTime").textContent=`平均回答時間 ${avg.toFixed(2)}秒`;
  $("resultMessage").textContent=score===10?"PERFECT! 全問正解！":score>=7?"GREAT! かなりの好成績！":score>=4?"GOOD! もう一度挑戦！":"KEEP TRYING!";
- $("resultList").innerHTML=results.map((r,i)=>`<div class="result-item"><span>${i+1}. ${escapeHtml(r.q)}<br><small>回答：${escapeHtml(r.user)} / 正解：${escapeHtml(r.a)}</small></span><b>${r.ok?"○":"×"}</b></div>`).join("");
+ $("resultList").innerHTML=results.map((r,i)=>`<div class="result-item"><span>${i+1}. ${esc(r.q)}<br><small>回答：${esc(r.user)} / 正解：${esc(r.a)} / ${r.time.toFixed(2)}秒</small></span><b>${r.ok?"○":"×"}</b></div>`).join("");
  if(score===10){beep(880,.12);setTimeout(()=>beep(1100,.12),130);setTimeout(()=>beep(1320,.25),260)}
 }
 renderQuestions();
