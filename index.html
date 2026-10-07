@@ -155,6 +155,10 @@ function countdownThenStart(){
       el.classList.add("go");
       setTimeout(()=>{
         el.classList.add("hidden");
+        el.classList.remove("go");
+
+        // ここで初めて回答を受け付ける
+        locked=false;
         [...$("choices").children].forEach(b=>b.disabled=false);
         startTimer();
       },450);
@@ -187,15 +191,19 @@ function startTimer(){
   },50);
 }
 function timeout(){
-  if($("timer").textContent==="TIME!") return;
+  if(locked) return;
   locked=true;
+  clearInterval(timer);
   streak=0;
   $("timer").textContent="TIME!";
   [...$("choices").children].forEach(b=>b.disabled=true);
-  setTimeout(()=>{i++;next();},700);
+  setTimeout(()=>{
+    i++;
+    next();
+  },700);
 }
 function answer(btn,x){
-  if(locked)return;
+  if(locked) return;
 
   locked=true;
   clearInterval(timer);
@@ -209,7 +217,7 @@ function answer(btn,x){
     maxStreak=Math.max(maxStreak,streak);
 
     const base=100;
-    const speed=Math.round((5-sec)*20);       // 0〜100
+    const speed=Math.round((5-sec)*20);
     const streakBonus=Math.max(0,streak-1)*25;
     score+=base+speed+streakBonus;
 
@@ -218,8 +226,8 @@ function answer(btn,x){
   }else{
     streak=0;
     btn.classList.add("wrong");
-    [...$("choices").children]
-      .find(b=>b.textContent===x.a)?.classList.add("correct");
+    const correctBtn=[...$("choices").children].find(b=>b.textContent===x.a);
+    if(correctBtn) correctBtn.classList.add("correct");
     $("timer").textContent="WRONG";
   }
 
@@ -227,7 +235,10 @@ function answer(btn,x){
   $("score").textContent=score;
   $("streak").textContent=streak;
 
-  setTimeout(()=>{i++;next();},700);
+  setTimeout(()=>{
+    i++;
+    next();
+  },700);
 }
 function finish(){
   clearInterval(timer);
