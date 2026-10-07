@@ -61,7 +61,7 @@ const BUILTIN=[{"q": "アイアンマンの本名は？", "a": "トニー・ス�
 const KEY="marvelTimeShockMyQuestionsV2",TOTAL=10;
 let mine=JSON.parse(localStorage.getItem(KEY)||"[]");
 let pool=[],i=0,score=0,streak=0,correct=0,maxStreak=0,timer=null,locked=false;
-let mode="solo",player=1,results=[],startAt=0,firstQuestion=true;
+let mode="solo",player=1,results=[],startAt=0,firstQuestion=true,questionToken=0;
 
 const $=x=>document.getElementById(x);
 
@@ -119,7 +119,7 @@ function round(){
 function next(){
   if(i>=TOTAL){finish();return;}
 
-  locked=true;
+  const token=++questionToken;
   const x=pool[i];
 
   $("qn").textContent=(i+1)+" / "+TOTAL;
@@ -133,15 +133,21 @@ function next(){
 
   const choices=[...x.o].sort(()=>Math.random()-.5);
   $("choices").innerHTML=choices.map(v=>`<button class="choice" disabled>${esc(v)}</button>`).join("");
-  [...$("choices").children].forEach(b=>b.onclick=()=>answer(b,x));
+  [...$("choices").children].forEach(b=>{
+    b.disabled=true;
+    b.onclick=()=>answer(b,x,token);
+  });
 
   if(firstQuestion){
+    // 初回だけカウントダウン中は回答をロック
+    locked=true;
     firstQuestion=false;
     countdownThenStart();
   }else{
-    // 2問目以降はカウントダウンなしで即スタート
+    // 2問目以降は即回答受付
+    locked=false;
     [...$("choices").children].forEach(b=>b.disabled=false);
-    startTimer();
+    startTimer(token);
   }
 }
 function countdownThenStart(){
@@ -165,10 +171,10 @@ function countdownThenStart(){
         el.classList.add("hidden");
         el.classList.remove("go");
 
-        // ここで初めて回答を受け付ける
+        if(token !== questionToken) return;
         locked=false;
         [...$("choices").children].forEach(b=>b.disabled=false);
-        startTimer();
+        startTimer(token);
       },450);
     }
   };
@@ -179,12 +185,17 @@ function esc(s){
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[m]));
 }
-function startTimer(){
+function startTimer(token=questionToken){
   clearInterval(timer);
   startAt=performance.now();
   const end=startAt+5000;
 
   timer=setInterval(()=>{
+    if(token!==questionToken){
+      clearInterval(timer);
+      return;
+    }
+
     const r=Math.max(0,end-performance.now());
     const sec=Math.min(5,(performance.now()-startAt)/1000);
 
@@ -194,24 +205,28 @@ function startTimer(){
 
     if(r<=0){
       clearInterval(timer);
-      timeout();
+      timeout(token);
     }
   },50);
 }
-function timeout(){
-  if(locked) return;
+function timeout(token=questionToken){
+  if(token!==questionToken || locked) return;
+
   locked=true;
   clearInterval(timer);
   streak=0;
   $("timer").textContent="TIME!";
+  $("elapsed").textContent="5.0s";
   [...$("choices").children].forEach(b=>b.disabled=true);
+
   setTimeout(()=>{
+    if(token!==questionToken) return;
     i++;
     next();
   },700);
 }
-function answer(btn,x){
-  if(locked) return;
+function answer(btn,x,token=questionToken){
+  if(token!==questionToken || locked || btn.disabled) return;
 
   locked=true;
   clearInterval(timer);
@@ -244,6 +259,7 @@ function answer(btn,x){
   $("streak").textContent=streak;
 
   setTimeout(()=>{
+    if(token!==questionToken) return;
     i++;
     next();
   },700);
