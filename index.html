@@ -42,6 +42,17 @@ input{width:100%;padding:13px;margin:5px 0;border-radius:10px;border:1px solid #
 <div id="question" class="question"></div><div id="choices" class="grid"></div>
 </section>
 
+
+<section id="handoff" class="card hidden result">
+<div id="handoffTitle">PLAYER 1 COMPLETE!</div>
+<div class="big">PLAYER 2</div>
+<div class="notice">端末をPLAYER 2に渡してください。<br>準備ができたらスタートしてください。</div>
+<div class="grid">
+<button class="primary" onclick="startPlayer2()">PLAYER 2 スタート</button>
+<button onclick="home()">タイトルへ</button>
+</div>
+</section>
+
 <section id="result" class="card hidden result">
 <div id="resultTitle"></div><div id="resultScore" class="big"></div><div id="resultDetail" class="notice"></div>
 <div class="grid"><button class="primary" onclick="start('solo')">もう一度</button><button onclick="home()">タイトルへ</button></div>
@@ -94,6 +105,7 @@ function home(){
   $("countdown").classList.add("hidden");
   $("home").classList.remove("hidden");
   $("game").classList.add("hidden");
+  $("handoff").classList.add("hidden");
   $("result").classList.add("hidden");
 }
 function start(m){
@@ -101,16 +113,36 @@ function start(m){
   player=1;
   results=[];
   firstQuestion=true;
-  round();
-}
-function round(){
+  $("handoff").classList.add("hidden");
+
+  // 対戦では最初に10問を決め、その同じ10問をPLAYER 2にも出題する
   pool=[...BUILTIN,...mine]
     .filter(x=>mode==="easy"?x.d!=="HARD":mode==="hard"?x.d!=="EASY":true)
     .sort(()=>Math.random()-.5)
     .slice(0,TOTAL);
 
-  i=0;score=0;streak=0;correct=0;maxStreak=0;
+  round();
+}
+
+function startPlayer2(){
+  if(mode!=="battle") return;
+
+  player=2;
+  firstQuestion=false; // PLAYER 2はボタンを押した時点でスタート
+  $("handoff").classList.add("hidden");
+  round();
+}
+
+function round(){
+  i=0;
+  score=0;
+  streak=0;
+  correct=0;
+  maxStreak=0;
+  locked=false;
+
   $("home").classList.add("hidden");
+  $("handoff").classList.add("hidden");
   $("result").classList.add("hidden");
   $("game").classList.remove("hidden");
   $("player").textContent=mode==="battle"?"PLAYER "+player:"MARVEL CHALLENGER";
@@ -269,12 +301,15 @@ function finish(){
   results.push({score,correct});
 
   if(mode==="battle"&&player===1){
-    player=2;
-    setTimeout(round,700);
+    // PLAYER 1終了。ここではPLAYER 2をまだ開始しない。
+    $("game").classList.add("hidden");
+    $("result").classList.add("hidden");
+    $("handoff").classList.remove("hidden");
     return;
   }
 
   $("game").classList.add("hidden");
+  $("handoff").classList.add("hidden");
   $("result").classList.remove("hidden");
 
   if(mode==="battle"){
