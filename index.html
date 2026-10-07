@@ -61,7 +61,7 @@ const BUILTIN=[{"q": "アイアンマンの本名は？", "a": "トニー・ス�
 const KEY="marvelTimeShockMyQuestionsV2",TOTAL=10;
 let mine=JSON.parse(localStorage.getItem(KEY)||"[]");
 let pool=[],i=0,score=0,streak=0,correct=0,maxStreak=0,timer=null,locked=false;
-let mode="solo",player=1,results=[],startAt=0;
+let mode="solo",player=1,results=[],startAt=0,firstQuestion=true;
 
 const $=x=>document.getElementById(x);
 
@@ -100,6 +100,7 @@ function start(m){
   mode=m;
   player=1;
   results=[];
+  firstQuestion=true;
   round();
 }
 function round(){
@@ -134,7 +135,14 @@ function next(){
   $("choices").innerHTML=choices.map(v=>`<button class="choice" disabled>${esc(v)}</button>`).join("");
   [...$("choices").children].forEach(b=>b.onclick=()=>answer(b,x));
 
-  countdownThenStart();
+  if(firstQuestion){
+    firstQuestion=false;
+    countdownThenStart();
+  }else{
+    // 2問目以降はカウントダウンなしで即スタート
+    [...$("choices").children].forEach(b=>b.disabled=false);
+    startTimer();
+  }
 }
 function countdownThenStart(){
   clearInterval(timer);
