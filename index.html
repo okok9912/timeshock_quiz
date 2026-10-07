@@ -1,248 +1,77 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#050505">
-<title>TIME SHOCK!</title>
+<title>MARVEL TIME SHOCK!</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#050505;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
-body{display:flex;justify-content:center}.app{width:min(100%,980px);min-height:100vh;padding:16px 14px 28px}
-button,input,textarea,select{font:inherit}.hidden{display:none!important}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-.logo{font-weight:1000;letter-spacing:.1em;font-size:clamp(22px,5vw,38px);font-style:italic}
-.badge{font-size:11px;border:1px solid #555;border-radius:999px;padding:5px 9px;color:#bbb;white-space:nowrap}
-.card{background:#101010;border:1px solid #292929;border-radius:18px;padding:20px;box-shadow:0 15px 45px #000}
-h1,h2,p{margin-top:0}h1{font-size:clamp(34px,9vw,72px);margin-bottom:8px;letter-spacing:.05em;font-style:italic;text-align:center}
-.subtitle{text-align:center;color:#aaa;margin-bottom:26px}.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
-.setting{background:#171717;border-radius:12px;padding:13px;text-align:center}.setting strong{display:block;font-size:22px;margin-top:3px}
-.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.btn{border:0;border-radius:12px;padding:13px 18px;background:#fff;color:#000;font-weight:900;cursor:pointer;min-height:48px}
-.btn.secondary{background:#202020;color:#fff;border:1px solid #3a3a3a}.btn.danger{background:#5c1515;color:#fff}
-.game{min-height:calc(100vh - 64px);display:flex;flex-direction:column}
-.progress{display:flex;justify-content:space-between;color:#aaa;font-size:14px;margin-bottom:9px}
-.timer-wrap{height:13px;background:#222;border-radius:999px;overflow:hidden;margin-bottom:20px}
-.timer{height:100%;width:100%;background:#fff}.timer.danger{background:#e33}
-.qbox{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.qtext{font-size:clamp(27px,6vw,54px);font-weight:900;line-height:1.3;max-width:900px;margin:0 auto 28px}
-.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:min(820px,100%)}
-.choice{border:2px solid #444;background:#181818;color:#fff;border-radius:16px;min-height:82px;padding:14px 12px;font-size:clamp(18px,4vw,28px);font-weight:850;cursor:pointer}
-.choice:active{transform:scale(.97)}.choice:disabled{cursor:default}
-.choice.correct{background:#0d5b2a;border-color:#62ff9a}.choice.wrong{background:#6a1616;border-color:#ff6767}.choice.timeout{background:#4a3510;border-color:#ffc857}
-.feedback{min-height:42px;text-align:center;font-weight:900;font-size:22px;margin-top:12px}
-.feedback.ok{color:#7cff9b}.feedback.ng{color:#ff6868}.feedback.to{color:#ffd166}
-.countdown{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:10}
-.count-number{font-size:clamp(90px,30vw,260px);font-weight:1000;font-style:italic}
-.shock{font-size:clamp(44px,12vw,110px);font-weight:1000;font-style:italic;text-align:center}
-.score{font-size:clamp(70px,20vw,150px);font-weight:1000;text-align:center;line-height:1}.big{font-size:21px;text-align:center}
-.result-list{max-height:330px;overflow:auto;margin:20px 0}.result-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #292929}.result-item small{color:#aaa}
-.admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.form-grid{display:grid;gap:12px}
-label{display:block;color:#aaa;font-size:13px;margin-bottom:6px}
-input,textarea,select{width:100%;background:#090909;color:#fff;border:1px solid #444;border-radius:9px;padding:10px;outline:none}
-textarea{min-height:70px;resize:vertical}.question-list{margin-top:18px;display:grid;gap:8px}
-.qitem{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;background:#171717;border-radius:10px}.qitem small{color:#aaa}
-.hint{color:#888;font-size:13px;text-align:center;margin-top:12px}
-.notice{background:#171717;border:1px solid #333;border-radius:10px;padding:10px;color:#aaa;font-size:13px;line-height:1.5}
-@media(max-width:600px){.app{padding:12px 10px 22px}.card{padding:15px}.settings{grid-template-columns:1fr}.choice-grid{gap:9px}.choice{min-height:78px;padding:10px 7px}}
-</style>
-</head>
-<body>
-<div class="app">
-<div class="topbar"><div class="logo">TIME SHOCK!</div><div class="badge">10 QUESTIONS / 5 SEC</div></div>
+*{box-sizing:border-box}body{margin:0;background:#080b12;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:820px;margin:auto;padding:18px}.logo{text-align:center;font-size:clamp(32px,9vw,60px);font-weight:1000;margin:10px}.logo span{color:#ef4444}
+.card{background:#111827;border:1px solid #334155;border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 12px 40px #0008}
+button{border:0;border-radius:14px;padding:14px;font-size:16px;font-weight:800;color:#fff;background:#263247}button.primary{background:#e11d2e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.hidden{display:none}.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.badge{background:#263247;border-radius:99px;padding:5px 9px;font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{background:#0b1220;border-radius:12px;padding:8px;text-align:center}.stat b{display:block;font-size:20px}
+.timer{text-align:center;font-size:52px;font-weight:1000}.progress{height:8px;background:#0b1220;border-radius:99px;overflow:hidden}.bar{height:100%;background:#ef4444;width:100%}
+.question{text-align:center;font-size:clamp(21px,5vw,34px);font-weight:900;line-height:1.35;margin:22px 0}
+.choice{min-height:68px;background:#182235}.choice.correct{background:#166534}.choice.wrong{background:#9a3412}
+.result{text-align:center}.big{font-size:64px;font-weight:1000}.notice{padding:10px;background:#0b1220;border:1px solid #334155;border-radius:12px;margin:10px 0}
+.small{font-size:12px;color:#94a3b8}
+input{width:100%;padding:13px;margin:5px 0;border-radius:10px;border:1px solid #334155;background:#0b1220;color:#fff}
+</style></head>
+<body><div class="wrap">
+<div class="logo">MARVEL <span>TIME SHOCK!</span></div>
 
 <section id="home" class="card">
-<h1>TIME SHOCK!</h1><p class="subtitle">5秒以内に正解をタップしろ。10問連続で挑戦！</p>
-<div class="settings"><div class="setting"><label>問題数</label><strong>10問</strong></div><div class="setting"><label>制限時間</label><strong>5秒 / 問</strong></div></div>
-<div class="actions"><button class="btn" id="startBtn">GAME START</button><button class="btn secondary" id="manageBtn">問題を登録・管理</button></div>
-<p class="hint">4択をタップするだけ。選択肢は毎回ランダムに変化します。</p>
-</section>
-
-<section id="admin" class="card hidden">
-<div class="admin-head"><h2>問題登録</h2><button class="btn secondary" id="backHomeBtn">戻る</button></div>
-<div class="notice">数値の正解（例：3776m、2020年、47）なら、不正解選択肢を毎回自動生成します。それ以外は登録した不正解候補から毎回ランダムに3つ選びます。</div>
-<div class="form-grid" style="margin-top:14px">
-<div><label>問題文</label><textarea id="questionInput" placeholder="例：富士山の高さは？"></textarea></div>
-<div><label>正解</label><input id="answerInput" placeholder="例：3776m"></div>
-<div><label>不正解候補（最大6個・数値問題では不要）</label><input id="wrongInput1" placeholder="例：阿蘇山"></div>
-<div><input id="wrongInput2" placeholder="例：北岳"></div><div><input id="wrongInput3" placeholder="例：奥穂高岳"></div>
-<div><input id="wrongInput4" placeholder="不正解候補4（任意）"></div><div><input id="wrongInput5" placeholder="不正解候補5（任意）"></div><div><input id="wrongInput6" placeholder="不正解候補6（任意）"></div>
-<div class="actions"><button class="btn" id="addBtn">問題を追加</button><button class="btn secondary" id="sampleBtn">サンプル問題を追加</button><button class="btn danger" id="clearBtn">全削除</button></div>
-</div><div id="questionList" class="question-list"></div>
-</section>
-
-<section id="game" class="game hidden">
-<div class="progress"><span id="progressText">1 / 10</span><span id="scoreText">SCORE 0</span></div>
-<div class="timer-wrap"><div id="timerBar" class="timer"></div></div>
-<div class="qbox"><div id="questionText" class="qtext"></div><div id="choiceGrid" class="choice-grid"></div><div id="feedback" class="feedback"></div></div>
-</section>
-
-<section id="result" class="card hidden">
-<div class="shock">TIME SHOCK!</div><p class="big" id="resultMessage"></p><div id="finalScore" class="score">0 / 10</div><div class="big" id="averageTime"></div>
-<div id="resultList" class="result-list"></div><div class="actions"><button class="btn" id="againBtn">もう一度</button><button class="btn secondary" id="resultHomeBtn">ホームへ</button></div>
-</section>
+<div class="row"><b>MARVEL RANDOM QUIZ</b><span id="count" class="badge"></span></div>
+<div class="notice">問題作成は不要。内蔵問題から毎回ランダムに10問出題します。</div>
+<div class="grid">
+<button class="primary" onclick="start('solo')">一人で挑戦</button>
+<button class="primary" onclick="start('battle')">夫婦対戦</button>
+<button onclick="start('easy')">EASY 10問</button>
+<button onclick="start('hard')">HARD 10問</button>
 </div>
-<div id="countdown" class="countdown hidden"><div id="countNumber" class="count-number">3</div></div>
+<p class="small">1問5秒・4択。回答速度もスコアに反映。問題の順番と選択肢は毎回変わります。</p>
+</section>
 
+<section id="game" class="card hidden">
+<div class="row"><b id="player">MARVEL CHALLENGER</b><span id="qn" class="badge"></span></div>
+<div class="stats"><div class="stat"><span class="small">SCORE</span><b id="score">0</b></div><div class="stat"><span class="small">TIME</span><b id="elapsed">0.0</b></div><div class="stat"><span class="small">STREAK</span><b id="streak">0</b></div></div>
+<div id="timer" class="timer">5.0</div><div class="progress"><div id="bar" class="bar"></div></div>
+<div id="difficulty" class="small" style="text-align:center;margin-top:8px"></div>
+<div id="question" class="question"></div><div id="choices" class="grid"></div>
+</section>
+
+<section id="result" class="card hidden result">
+<div id="resultTitle"></div><div id="resultScore" class="big"></div><div id="resultDetail" class="notice"></div>
+<div class="grid"><button class="primary" onclick="start('solo')">もう一度</button><button onclick="home()">タイトルへ</button></div>
+</section>
+
+<section class="card">
+<b>自作問題</b><span id="myCount" class="badge" style="float:right"></span>
+<p class="small">自作問題も追加できます。通常プレイでは内蔵問題を使うので、登録は任意です。</p>
+<button onclick="toggleAdd()">自作問題を追加</button>
+<div id="add" class="hidden">
+<input id="q" placeholder="問題文"><input id="a" placeholder="正解"><input id="o" placeholder="不正解3つをカンマ区切り">
+<button class="primary" onclick="add()">登録</button><div id="status" class="notice hidden"></div>
+</div></section>
+</div>
 <script>
-const KEY="timeShockQuestionsV3";
-const defaultQuestions=[
-{q:"富士山の高さは？",a:"3776m",o:[],type:"numeric"},
-{q:"1年は何か月？",a:"12",o:[],type:"numeric"},
-{q:"日本で一番大きい都道府県は？",a:"北海道",o:["岩手県","長野県","福島県","新潟県","岐阜県","秋田県"],type:"pool"},
-{q:"英語で「猫」は？",a:"cat",o:["dog","bird","fish","horse","rabbit","mouse"],type:"pool"},
-{q:"地球のひとつ外側を回る惑星は？",a:"火星",o:["金星","木星","水星","土星","海王星","天王星"],type:"pool"},
-{q:"水の化学式は？",a:"H2O",o:["CO2","O2","NaCl","CH4","H2","O3"],type:"pool"},
-{q:"7×8は？",a:"56",o:[],type:"numeric"},
-{q:"日本の国鳥は？",a:"キジ",o:["タンチョウ","スズメ","カラス","ハト","ツバメ","ウグイス"],type:"pool"},
-{q:"「吾輩は猫である」の作者は？",a:"夏目漱石",o:["芥川龍之介","太宰治","森鴎外","川端康成","宮沢賢治","谷崎潤一郎"],type:"pool"},
-{q:"大阪府の府庁所在地は？",a:"大阪市",o:["堺市","東大阪市","豊中市","枚方市","吹田市","高槻市"],type:"pool"},
-{q:"虹は通常何色とされる？",a:"7",o:[],type:"numeric"},
-{q:"世界で最も面積が大きい国は？",a:"ロシア",o:["カナダ","中国","アメリカ","ブラジル","オーストラリア","インド"],type:"pool"},
-{q:"地球が太陽の周りを1周するのに約何日？",a:"365日",o:[],type:"numeric"},
-{q:"「ありがとう」を英語で？",a:"thank you",o:["good morning","sorry","welcome","good night","please","hello"],type:"pool"},
-{q:"東京オリンピックが開催された年は？",a:"2020年",o:[],type:"numeric"}
-];
-
-let questions=loadQuestions(),gameQuestions=[],current=0,score=0,answered=false,timerId=null,startTime=0,results=[];
-const $=id=>document.getElementById(id);
-function loadQuestions(){try{const x=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(x)&&x.length)return x}catch(e){}return defaultQuestions.slice()}
-function saveQuestions(){localStorage.setItem(KEY,JSON.stringify(questions))}
-function show(id){["home","admin","game","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id))}
-function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
-function beep(f,d,t="sine",v=.06){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.connect(g).connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
-function correctSound(){beep(880,.1);setTimeout(()=>beep(1320,.13),70)}
-function wrongSound(){beep(180,.25,"sawtooth",.05)}function timeoutSound(){beep(120,.35,"square",.05)}
-function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+const BUILTIN=[{"q": "アイアンマンの本名は？", "a": "トニー・スターク", "o": ["トニー・スターク", "スティーブ・ロジャース", "ブルース・バナー", "クリント・バートン"], "d": "EASY"}, {"q": "キャプテン・アメリカの本名は？", "a": "スティーブ・ロジャース", "o": ["スティーブ・ロジャース", "サム・ウィルソン", "バッキー・バーンズ", "クリント・バートン"], "d": "EASY"}, {"q": "ソーの本名は？", "a": "ソー・オーディンソン", "o": ["ソー・オーディンソン", "ロキ・オーディンソン", "オーディン・ボーソン", "ヘイムダル"], "d": "EASY"}, {"q": "ブラック・ウィドウの本名は？", "a": "ナターシャ・ロマノフ", "o": ["ナターシャ・ロマノフ", "ワンダ・マキシモフ", "キャロル・ダンヴァース", "エレーナ・ベロワ"], "d": "EASY"}, {"q": "ホークアイの本名は？", "a": "クリント・バートン", "o": ["クリント・バートン", "サム・ウィルソン", "ジェームズ・ローズ", "スコット・ラング"], "d": "EASY"}, {"q": "ハルクの本名は？", "a": "ブルース・バナー", "o": ["ブルース・バナー", "ブルース・ウェイン", "スティーブ・ロジャース", "ハンク・ピム"], "d": "EASY"}, {"q": "スパイダーマンの本名は？", "a": "ピーター・パーカー", "o": ["ピーター・パーカー", "ピーター・クイル", "マイルズ・モラレス", "エディ・ブロック"], "d": "EASY"}, {"q": "ブラックパンサーの本名は？", "a": "ティ・チャラ", "o": ["ティ・チャラ", "ムバク", "ズリ", "ティ・チャカ"], "d": "EASY"}, {"q": "ドクター・ストレンジの本名は？", "a": "スティーヴン・ストレンジ", "o": ["スティーヴン・ストレンジ", "スティーヴン・グラント", "リード・リチャーズ", "ハンク・ピム"], "d": "EASY"}, {"q": "ワンダの通称は？", "a": "スカーレット・ウィッチ", "o": ["スカーレット・ウィッチ", "ブラック・ウィドウ", "キャプテン・マーベル", "ミズ・マーベル"], "d": "EASY"}, {"q": "ヴィジョンの額にある石は？", "a": "マインド・ストーン", "o": ["マインド・ストーン", "スペース・ストーン", "タイム・ストーン", "ソウル・ストーン"], "d": "EASY"}, {"q": "インフィニティ・ストーンは全部で何個？", "a": "6個", "o": ["6個", "4個", "5個", "7個"], "d": "EASY"}, {"q": "テッセラクトの正体は？", "a": "スペース・ストーン", "o": ["スペース・ストーン", "マインド・ストーン", "リアリティ・ストーン", "タイム・ストーン"], "d": "NORMAL"}, {"q": "エーテルの正体は？", "a": "リアリティ・ストーン", "o": ["リアリティ・ストーン", "パワー・ストーン", "タイム・ストーン", "スペース・ストーン"], "d": "NORMAL"}, {"q": "アガモットの目に隠されていた石は？", "a": "タイム・ストーン", "o": ["タイム・ストーン", "ソウル・ストーン", "マインド・ストーン", "パワー・ストーン"], "d": "NORMAL"}, {"q": "ソウル・ストーンが存在した惑星は？", "a": "ヴォーミア", "o": ["ヴォーミア", "ザンダー", "モラグ", "サカール"], "d": "NORMAL"}, {"q": "パワー・ストーンが入っていたものは？", "a": "オーブ", "o": ["オーブ", "テッセラクト", "セプター", "アガモットの目"], "d": "NORMAL"}, {"q": "J.A.R.V.I.S.の後にトニーを支援したAIは？", "a": "F.R.I.D.A.Y.", "o": ["F.R.I.D.A.Y.", "KAREN", "EDITH", "ULTRON"], "d": "NORMAL"}, {"q": "ヴィジョンの基礎となったAIは？", "a": "J.A.R.V.I.S.", "o": ["J.A.R.V.I.S.", "F.R.I.D.A.Y.", "KAREN", "EDITH"], "d": "NORMAL"}, {"q": "ウルトロンを作ろうとした主な人物は？", "a": "トニー・スタークとブルース・バナー", "o": ["トニー・スタークとブルース・バナー", "ソーとロキ", "スティーブとバッキー", "ニック・フューリーとコールソン"], "d": "NORMAL"}, {"q": "ヴィジョンの身体に使われた金属は？", "a": "ヴィブラニウム", "o": ["ヴィブラニウム", "アダマンチウム", "ウル", "チタニウム"], "d": "NORMAL"}, {"q": "キャプテン・アメリカの盾の主素材は？", "a": "ヴィブラニウム", "o": ["ヴィブラニウム", "アダマンチウム", "ウル", "チタニウム"], "d": "EASY"}, {"q": "シビル・ウォーでアベンジャーズを分断した協定は？", "a": "ソコヴィア協定", "o": ["ソコヴィア協定", "ワカンダ協定", "ザンダー協定", "ニューヨーク協定"], "d": "EASY"}, {"q": "シビル・ウォーでスパイダーマン側についたのは？", "a": "アイアンマン", "o": ["アイアンマン", "キャプテン・アメリカ", "ブラックパンサー", "ホークアイ"], "d": "EASY"}, {"q": "シビル・ウォーでキャプテン・アメリカ側のアントマンは？", "a": "スコット・ラング", "o": ["スコット・ラング", "ハンク・ピム", "エリック・オグレイディ", "サム・ウィルソン"], "d": "NORMAL"}, {"q": "ワカンダの希少金属は？", "a": "ヴィブラニウム", "o": ["ヴィブラニウム", "アダマンチウム", "ウル", "エーテル"], "d": "EASY"}, {"q": "リベンジャーズに参加した戦士は？", "a": "ヴァルキリー", "o": ["ヴァルキリー", "ブラック・ウィドウ", "ホークアイ", "アイアンマン"], "d": "EASY"}, {"q": "リベンジャーズが集結した主な舞台は？", "a": "サカール", "o": ["サカール", "ワカンダ", "ザンダー", "ヴォーミア"], "d": "NORMAL"}, {"q": "サカールを支配していた人物は？", "a": "グランドマスター", "o": ["グランドマスター", "コレクター", "ヘラ", "エイトリ"], "d": "NORMAL"}, {"q": "コーグの種族は？", "a": "クロナン", "o": ["クロナン", "クリー", "チタウリ", "フロスト・ジャイアント"], "d": "HARD"}, {"q": "ロキの父は？", "a": "ラウフェイ", "o": ["ラウフェイ", "オーディン", "ボー", "ヘラ"], "d": "NORMAL"}, {"q": "ロキを養子にした人物は？", "a": "オーディン", "o": ["オーディン", "オーディン", "ゼウス", "グランドマスター"], "d": "EASY"}, {"q": "ヘラは誰の娘？", "a": "オーディン", "o": ["オーディン", "ロキ", "ゼウス", "サノス"], "d": "NORMAL"}, {"q": "ガーディアンズのリーダーは？", "a": "ピーター・クイル", "o": ["ピーター・クイル", "ロケット", "ドラックス", "ヨンドゥ"], "d": "EASY"}, {"q": "ロケットは何の動物を改造した存在？", "a": "アライグマ", "o": ["アライグマ", "キツネ", "イタチ", "オオカミ"], "d": "NORMAL"}, {"q": "ロケットの親友の木は？", "a": "グルート", "o": ["グルート", "コーグ", "コスモ", "ヨンドゥ"], "d": "EASY"}, {"q": "ガモーラの養父は？", "a": "サノス", "o": ["サノス", "ロナン", "コレクター", "エゴ"], "d": "EASY"}, {"q": "ガモーラとネビュラの関係は？", "a": "姉妹", "o": ["姉妹", "親子", "従姉妹", "師弟"], "d": "EASY"}, {"q": "ドラックスが復讐を誓った相手は？", "a": "ロナン", "o": ["ロナン", "サノス", "エボニー・マウ", "ヨンドゥ"], "d": "NORMAL"}, {"q": "キャプテン・マーベルの本名は？", "a": "キャロル・ダンヴァース", "o": ["キャロル・ダンヴァース", "モニカ・ランボー", "カマラ・カーン", "ナターシャ・ロマノフ"], "d": "EASY"}, {"q": "ミズ・マーベルの本名は？", "a": "カマラ・カーン", "o": ["カマラ・カーン", "キャロル・ダンヴァース", "ケイト・ビショップ", "アメリカ・チャベス"], "d": "EASY"}, {"q": "ホークアイの後継者として描かれる弓使いは？", "a": "ケイト・ビショップ", "o": ["ケイト・ビショップ", "エレーナ・ベロワ", "カマラ・カーン", "モニカ・ランボー"], "d": "EASY"}, {"q": "ブラック・ウィドウの妹は？", "a": "エレーナ・ベロワ", "o": ["エレーナ・ベロワ", "メリーナ・ヴォストコフ", "ケイト・ビショップ", "モニカ・ランボー"], "d": "EASY"}, {"q": "TVAで働く人物は？", "a": "メビウス", "o": ["メビウス", "コールソン", "ジモ", "ロキ"], "d": "EASY"}, {"q": "ロキの変異体として登場する人物は？", "a": "シルヴィ", "o": ["シルヴィ", "ラヴォーナ", "ケイト", "エレーナ"], "d": "NORMAL"}, {"q": "時間を監視する組織は？", "a": "TVA", "o": ["TVA", "S.H.I.E.L.D.", "HYDRA", "S.W.O.R.D."], "d": "EASY"}, {"q": "エターナルズを創造した宇宙的存在は？", "a": "セレスティアルズ", "o": ["セレスティアルズ", "チタウリ", "クリー", "ウォッチャー"], "d": "EASY"}, {"q": "エターナルズで超高速移動を得意とするのは？", "a": "マッカリ", "o": ["マッカリ", "セナ", "スプライト", "ティーナ"], "d": "NORMAL"}, {"q": "シャン・チーの父は？", "a": "ウェンウー", "o": ["ウェンウー", "シャン・チー", "ジン・リー", "マンダリン"], "d": "EASY"}, {"q": "ウェンウーが使う武器は？", "a": "テン・リングス", "o": ["テン・リングス", "ネガ・バンド", "ムジョルニア", "ヤカの矢"], "d": "EASY"}, {"q": "ワカンダの技術責任者は？", "a": "シュリ", "o": ["シュリ", "オコエ", "ナキア", "ラモンダ"], "d": "EASY"}, {"q": "ニック・フューリーが率いていた組織は？", "a": "S.H.I.E.L.D.", "o": ["S.H.I.E.L.D.", "HYDRA", "TVA", "S.W.O.R.D."], "d": "EASY"}, {"q": "HYDRAの有名な合言葉は？", "a": "Hail Hydra", "o": ["Hail Hydra", "Hail Wakanda", "Avengers Assemble", "We Are Groot"], "d": "NORMAL"}, {"q": "ウィンター・ソルジャーの正体は？", "a": "バッキー・バーンズ", "o": ["バッキー・バーンズ", "サム・ウィルソン", "ジョン・ウォーカー", "フィル・コールソン"], "d": "EASY"}, {"q": "ファルコンの本名は？", "a": "サム・ウィルソン", "o": ["サム・ウィルソン", "ジェームズ・ローズ", "ジョン・ウォーカー", "バッキー・バーンズ"], "d": "EASY"}, {"q": "サムがキャプテン・アメリカを受け継いだ作品は？", "a": "ファルコン＆ウィンター・ソルジャー", "o": ["ファルコン＆ウィンター・ソルジャー", "ワンダヴィジョン", "ロキ", "ホークアイ"], "d": "NORMAL"}, {"q": "スクラルの特徴的な能力は？", "a": "他人に擬態する", "o": ["他人に擬態する", "時間を止める", "透明になる", "雷を操る"], "d": "EASY"}, {"q": "『インフィニティ・ウォー』でサノスがソウル・ストーンのために犠牲にしたのは？", "a": "ガモーラ", "o": ["ガモーラ", "ネビュラ", "ロキ", "ナターシャ・ロマノフ"], "d": "EASY"}, {"q": "エンドゲームでソウル・ストーンのために犠牲になったのは？", "a": "ナターシャ・ロマノフ", "o": ["ナターシャ・ロマノフ", "ワンダ", "ガモーラ", "ヴァルキリー"], "d": "EASY"}, {"q": "ソーの新しい武器は？", "a": "ストームブレイカー", "o": ["ストームブレイカー", "ムジョルニア", "ネクロソード", "ホーフンド"], "d": "EASY"}, {"q": "ストームブレイカーを作った鍛冶職人は？", "a": "エイトリ", "o": ["エイトリ", "コーグ", "グランドマスター", "ヘイムダル"], "d": "NORMAL"}, {"q": "ニダヴェリアの場所は？", "a": "ニダヴェリア", "o": ["ニダヴェリア", "サカール", "ヴォーミア", "モラグ"], "d": "NORMAL"}, {"q": "サノスの故郷は？", "a": "タイタン", "o": ["タイタン", "モラグ", "ザンダー", "ヴォーミア"], "d": "EASY"}, {"q": "チタウリ軍を地球へ送り込んだ人物は？", "a": "サノス", "o": ["サノス", "ロキ", "ロナン", "ウルトロン"], "d": "NORMAL"}, {"q": "ニューヨーク決戦で侵攻した宇宙人は？", "a": "チタウリ", "o": ["チタウリ", "クリー", "スクラル", "アウトライダーズ"], "d": "EASY"}, {"q": "初代アベンジャーズは何人？", "a": "6人", "o": ["6人", "4人", "5人", "7人"], "d": "EASY"}, {"q": "初代アベンジャーズに含まれないのは？", "a": "スパイダーマン", "o": ["スパイダーマン", "ソー", "ハルク", "ブラック・ウィドウ"], "d": "EASY"}, {"q": "エンドゲームでムジョルニアを持ち上げたのは？", "a": "キャプテン・アメリカ", "o": ["キャプテン・アメリカ", "アイアンマン", "ホークアイ", "ドクター・ストレンジ"], "d": "EASY"}, {"q": "トニー・スタークの娘は？", "a": "モーガン", "o": ["モーガン", "メイ", "ナタリー", "ホープ"], "d": "EASY"}, {"q": "トニーが最期に言った有名な言葉は？", "a": "I am Iron Man", "o": ["I am Iron Man", "I can do this all day", "Avengers Assemble", "We are Groot"], "d": "EASY"}, {"q": "キャプテン・アメリカの決め台詞は？", "a": "I can do this all day", "o": ["I can do this all day", "I am Iron Man", "Avengers Assemble", "We are Groot"], "d": "EASY"}, {"q": "グルートの代表的な台詞は？", "a": "I am Groot", "o": ["I am Groot", "We are Groot", "I am Iron Man", "I can do this all day"], "d": "EASY"}, {"q": "アベンジャーズの掛け声は？", "a": "Avengers Assemble", "o": ["Avengers Assemble", "Avengers Attack", "We Are Avengers", "Assemble Now"], "d": "EASY"}, {"q": "ハルクが変身する主なきっかけは？", "a": "怒り", "o": ["怒り", "悲しみ", "空腹", "睡眠"], "d": "EASY"}, {"q": "ブルースとハルクが融合した姿は？", "a": "スマート・ハルク", "o": ["スマート・ハルク", "レッド・ハルク", "ワールド・ハルク", "グリーン・ハルク"], "d": "NORMAL"}, {"q": "アントマンのスーツを開発した人物は？", "a": "ハンク・ピム", "o": ["ハンク・ピム", "トニー・スターク", "ブルース・バナー", "リード・リチャーズ"], "d": "EASY"}, {"q": "ワスプとして活動するホープの姓は？", "a": "ヴァン・ダイン", "o": ["ヴァン・ダイン", "ピム", "ラング", "カーター"], "d": "NORMAL"}, {"q": "量子領域に閉じ込められていた人物は？", "a": "ジャネット・ヴァン・ダイン", "o": ["ジャネット・ヴァン・ダイン", "ペギー・カーター", "ナターシャ・ロマノフ", "メリーナ・ヴォストコフ"], "d": "NORMAL"}, {"q": "『ノー・ウェイ・ホーム』のグリーン・ゴブリンの本名は？", "a": "ノーマン・オズボーン", "o": ["ノーマン・オズボーン", "ハリー・オズボーン", "クエンティン・ベック", "カート・コナーズ"], "d": "EASY"}, {"q": "ドクター・オクトパスの本名は？", "a": "オットー・オクタビアス", "o": ["オットー・オクタビアス", "ノーマン・オズボーン", "フリント・マルコ", "カート・コナーズ"], "d": "EASY"}, {"q": "サンドマンの本名は？", "a": "フリント・マルコ", "o": ["フリント・マルコ", "エディ・ブロック", "カート・コナーズ", "マック・ガーガン"], "d": "NORMAL"}, {"q": "リザードの本名は？", "a": "カート・コナーズ", "o": ["カート・コナーズ", "フリント・マルコ", "オットー・オクタビアス", "ノーマン・オズボーン"], "d": "NORMAL"}, {"q": "ミステリオの本名は？", "a": "クエンティン・ベック", "o": ["クエンティン・ベック", "エイドリアン・トゥームス", "ノーマン・オズボーン", "カート・コナーズ"], "d": "EASY"}, {"q": "バルチャーの本名は？", "a": "エイドリアン・トゥームス", "o": ["エイドリアン・トゥームス", "クエンティン・ベック", "ノーマン・オズボーン", "ハーマン・シュルツ"], "d": "NORMAL"}, {"q": "ウルヴァリンの骨格を覆う金属は？", "a": "アダマンチウム", "o": ["アダマンチウム", "ヴィブラニウム", "ウル", "チタニウム"], "d": "EASY"}, {"q": "デッドプールの本名は？", "a": "ウェイド・ウィルソン", "o": ["ウェイド・ウィルソン", "サム・ウィルソン", "ジェームズ・ローズ", "スコット・ラング"], "d": "EASY"}, {"q": "デアデビルの本名は？", "a": "マット・マードック", "o": ["マット・マードック", "フランク・キャッスル", "ウィルソン・フィスク", "スティーヴン・ストレンジ"], "d": "EASY"}, {"q": "キングピンの本名は？", "a": "ウィルソン・フィスク", "o": ["ウィルソン・フィスク", "マット・マードック", "フランク・キャッスル", "ヘルムート・ジモ"], "d": "EASY"}, {"q": "ムーンナイトが仕えるエジプト神は？", "a": "コンス", "o": ["コンス", "ラー", "アヌビス", "オシリス"], "d": "NORMAL"}, {"q": "シー・ハルクの本名は？", "a": "ジェニファー・ウォルターズ", "o": ["ジェニファー・ウォルターズ", "ジェニファー・ピアース", "ジェニファー・カーター", "ジェニファー・バナー"], "d": "EASY"}, {"q": "シー・ハルクの従兄は？", "a": "ブルース・バナー", "o": ["ブルース・バナー", "スティーブ・ロジャース", "トニー・スターク", "サム・ウィルソン"], "d": "EASY"}, {"q": "ホワイト・ヴィジョンが登場するドラマは？", "a": "ワンダヴィジョン", "o": ["ワンダヴィジョン", "ロキ", "ホークアイ", "ファルコン＆ウィンター・ソルジャー"], "d": "EASY"}, {"q": "ワンダの隣人の正体は？", "a": "アガサ・ハークネス", "o": ["アガサ・ハークネス", "エンシェント・ワン", "モルド", "ラヴォーナ"], "d": "NORMAL"}, {"q": "『ワンダヴィジョン』でワンダが作った世界は？", "a": "ヘックス", "o": ["ヘックス", "ミラー・ディメンション", "ダーク・ディメンション", "量子領域"], "d": "NORMAL"}, {"q": "ワンダの双子の息子は？", "a": "ビリーとトミー", "o": ["ビリーとトミー", "ピーターとマックス", "サムとジェイク", "マイルズとベン"], "d": "EASY"}, {"q": "クイックシルバーの本名は？", "a": "ピエトロ・マキシモフ", "o": ["ピエトロ・マキシモフ", "ピーター・クイル", "ピーター・パーカー", "フィリップ・コールソン"], "d": "EASY"}, {"q": "ワンダとクイックシルバーの関係は？", "a": "双子の兄妹", "o": ["双子の兄妹", "夫婦", "従兄妹", "親子"], "d": "EASY"}, {"q": "クイックシルバーが戦死した国は？", "a": "ソコヴィア", "o": ["ソコヴィア", "ワカンダ", "ニューヨーク", "サカール"], "d": "NORMAL"}, {"q": "アベンジャーズが最終的に戦ったサノスの軍勢は？", "a": "アウトライダーズなど", "o": ["アウトライダーズなど", "チタウリのみ", "クリーのみ", "ラヴェジャーズのみ"], "d": "NORMAL"}, {"q": "ブラック・オーダーで魔術的な能力を持つ人物は？", "a": "エボニー・マウ", "o": ["エボニー・マウ", "コーヴァス・グレイヴ", "カル・オブシディアン", "プロキシマ・ミッドナイト"], "d": "NORMAL"}, {"q": "『ブラックパンサー』のヴィランは？", "a": "キルモンガー", "o": ["キルモンガー", "ジモ", "ロナン", "エボニー・マウ"], "d": "EASY"}, {"q": "キルモンガーの本名は？", "a": "エリック・スティーヴンス", "o": ["エリック・スティーヴンス", "エリック・キルグレイヴ", "エリック・セルヴィグ", "エリック・サヴェージ"], "d": "HARD"}, {"q": "『ブラックパンサー／ワカンダ・フォーエバー』のヴィランは？", "a": "ネイモア", "o": ["ネイモア", "タスクマスター", "ゴア", "カーン"], "d": "EASY"}, {"q": "ネイモアが率いる海底王国は？", "a": "タロカン", "o": ["タロカン", "アトランティス", "ラトベリア", "ザンダー"], "d": "NORMAL"}, {"q": "『ガーディアンズ・オブ・ギャラクシー Vol.2』でピーターの父は？", "a": "エゴ", "o": ["エゴ", "ヨンドゥ", "サノス", "コレクター"], "d": "EASY"}, {"q": "ヨンドゥの武器は？", "a": "ヤカの矢", "o": ["ヤカの矢", "ムジョルニア", "ネクロソード", "ホーフンド"], "d": "EASY"}, {"q": "ヤカの矢を操る方法は？", "a": "口笛", "o": ["口笛", "口笛", "手拍子", "魔法", "指パッチン"], "d": "EASY"}, {"q": "『ガーディアンズ・オブ・ギャラクシー』の船は？", "a": "ミラノ", "o": ["ミラノ", "ベネター", "クインジェット", "レヴェンジャー"], "d": "NORMAL"}, {"q": "コスモは何の動物？", "a": "犬", "o": ["犬", "犬", "猫", "オオカミ"], "d": "EASY"}, {"q": "サカールでソーとハルクが戦った場所は？", "a": "闘技場", "o": ["闘技場", "闘技場", "王宮", "宇宙船"], "d": "EASY"}, {"q": "ヘイムダルが使う剣は？", "a": "ホーフンド", "o": ["ホーフンド", "グラム", "ムジョルニア", "ストームブレイカー"], "d": "HARD"}, {"q": "ヘラが破壊した武器は？", "a": "ムジョルニア", "o": ["ムジョルニア", "ストームブレイカー", "ホーフンド", "ガンギル"], "d": "EASY"}, {"q": "スルトが支配する場所は？", "a": "ムスペルヘイム", "o": ["ムスペルヘイム", "ヨトゥンヘイム", "ヴァナヘイム", "ニヴルヘイム"], "d": "HARD"}, {"q": "フロスト・ジャイアントの故郷は？", "a": "ヨトゥンヘイム", "o": ["ヨトゥンヘイム", "ムスペルヘイム", "アスガルド", "ヴァナヘイム"], "d": "NORMAL"}, {"q": "ソーの母親は？", "a": "フリッガ", "o": ["フリッガ", "ヘラ", "シフ", "ジェーン"], "d": "NORMAL"}, {"q": "ソーの恋人の科学者は？", "a": "ジェーン・フォスター", "o": ["ジェーン・フォスター", "ペギー・カーター", "ダーシー・ルイス", "メイ・パーカー"], "d": "EASY"}, {"q": "『アイアンマン』でトニーを助けた科学者は？", "a": "インセン", "o": ["インセン", "ゾラ", "セルヴィグ", "コールソン"], "d": "NORMAL"}, {"q": "『アイアンマン』のヴィランは？", "a": "オバディア・ステイン", "o": ["オバディア・ステイン", "ジャスティン・ハマー", "イワン・ヴァンコ", "キリアン"], "d": "NORMAL"}, {"q": "『アイアンマン2』でウォーマシンになる人物は？", "a": "ジェームズ・ローズ", "o": ["ジェームズ・ローズ", "サム・ウィルソン", "バッキー・バーンズ", "ハッピー・ホーガン"], "d": "EASY"}, {"q": "ウォーマシンの愛称は？", "a": "ローディ", "o": ["ローディ", "ハッピー", "フューリー", "コールソン"], "d": "EASY"}, {"q": "トニーの運転手兼友人は？", "a": "ハッピー・ホーガン", "o": ["ハッピー・ホーガン", "フィル・コールソン", "ニック・フューリー", "ジャック・デュケイン"], "d": "EASY"}, {"q": "トニーの秘書からCEOになった人物は？", "a": "ペッパー・ポッツ", "o": ["ペッパー・ポッツ", "メイ・パーカー", "ナキア", "ダーシー・ルイス"], "d": "EASY"}, {"q": "『アイアンマン3』でペッパーに投与されたものは？", "a": "エクストリミス", "o": ["エクストリミス", "ピム粒子", "スーパーソルジャー血清", "ヴィブラニウム"], "d": "NORMAL"}, {"q": "『キャプテン・アメリカ』でスティーブの親友は？", "a": "バッキー・バーンズ", "o": ["バッキー・バーンズ", "ハワード・スターク", "コールソン", "サム・ウィルソン"], "d": "EASY"}, {"q": "ペギー・カーターはスティーブにとって？", "a": "恋人・親しい仲間", "o": ["恋人・親しい仲間", "妹", "上司の娘", "宿敵"], "d": "EASY"}, {"q": "キャプテン・アメリカの盾を作った人物は？", "a": "ハワード・スターク", "o": ["ハワード・スターク", "トニー・スターク", "ハンク・ピム", "ブルース・バナー"], "d": "NORMAL"}, {"q": "『ウィンター・ソルジャー』でS.H.I.E.L.D.に潜伏していた組織は？", "a": "HYDRA", "o": ["HYDRA", "クリー", "スクラル", "ラヴェジャーズ"], "d": "EASY"}, {"q": "アーニム・ゾラは何者？", "a": "HYDRAの科学者", "o": ["HYDRAの科学者", "アスガルドの戦士", "クリーの将軍", "ワカンダの科学者"], "d": "NORMAL"}, {"q": "『シビル・ウォー』の最終決戦の場所は？", "a": "シベリア", "o": ["シベリア", "ワカンダ", "ソコヴィア", "ラゴス"], "d": "EASY"}, {"q": "シビル・ウォーでアイアンマンが知った衝撃の事実は？", "a": "バッキーが両親を殺した", "o": ["バッキーが両親を殺した", "スティーブがソコヴィアを破壊した", "ワンダが両親を殺した", "サムが盾を盗んだ"], "d": "NORMAL"}, {"q": "ラゴスで問題となったのは？", "a": "民間人への被害", "o": ["民間人への被害", "ストーンの紛失", "本部の破壊", "ソコヴィアの爆発"], "d": "NORMAL"}, {"q": "エンドゲームでドクター・ストレンジが見た未来は約何通り？", "a": "1400万以上", "o": ["1400万以上", "100万", "500万", "1億"], "d": "NORMAL"}, {"q": "その中で勝利する未来は何通り？", "a": "1通り", "o": ["1通り", "14通り", "100通り", "1000通り"], "d": "EASY"}, {"q": "エンドゲームで5年間消えていた人々が戻った現象は？", "a": "ブリップ", "o": ["ブリップ", "スナップ", "リターン", "リバース"], "d": "NORMAL"}, {"q": "サノスが指を鳴らした現象は？", "a": "スナップ", "o": ["スナップ", "ブリップ", "フラッシュ", "ダスト"], "d": "EASY"}, {"q": "エンドゲームで過去へ戻る技術の中心は？", "a": "量子トンネル", "o": ["量子トンネル", "スターゲート", "タイム・ポータル", "クロノ・ゲート"], "d": "NORMAL"}, {"q": "時間移動に必要だった粒子は？", "a": "ピム粒子", "o": ["ピム粒子", "スターク粒子", "バナー粒子", "クイル粒子"], "d": "NORMAL"}, {"q": "ピム粒子を開発したのは？", "a": "ハンク・ピム", "o": ["ハンク・ピム", "トニー・スターク", "ブルース・バナー", "リード・リチャーズ"], "d": "EASY"}, {"q": "エンドゲームでクリントが名乗った名前は？", "a": "ローニン", "o": ["ローニン", "サムライ", "アロー", "ナイトホーク"], "d": "NORMAL"}, {"q": "『ホークアイ』でクリントが過去に関係した人物は？", "a": "エコー", "o": ["エコー", "ケイト", "エレーナ", "モニカ"], "d": "NORMAL"}, {"q": "エコーの本名は？", "a": "マヤ・ロペス", "o": ["マヤ・ロペス", "マヤ・ハンセン", "マヤ・スターク", "マヤ・ビショップ"], "d": "NORMAL"}, {"q": "レッドルームを運営していた人物は？", "a": "ドレイコフ", "o": ["ドレイコフ", "ジモ", "ロス", "ピアース"], "d": "NORMAL"}, {"q": "ブラック・ウィドウのタスクマスターの正体は？", "a": "アントニア・ドレイコフ", "o": ["アントニア・ドレイコフ", "エレーナ", "メリーナ", "ナターシャ"], "d": "HARD"}, {"q": "タスクマスターの能力は？", "a": "相手の戦闘動作を模倣する", "o": ["相手の戦闘動作を模倣する", "時間を止める", "心を読む", "透明になる"], "d": "NORMAL"}, {"q": "『スパイダーマン：ホームカミング』のヴィランは？", "a": "バルチャー", "o": ["バルチャー", "ミステリオ", "グリーン・ゴブリン", "ドクター・オクトパス"], "d": "EASY"}, {"q": "『ファー・フロム・ホーム』のヴィランは？", "a": "ミステリオ", "o": ["ミステリオ", "バルチャー", "グリーン・ゴブリン", "サンドマン"], "d": "EASY"}, {"q": "デッドプール＆ウルヴァリンで時間を管理する組織は？", "a": "TVA", "o": ["TVA", "S.H.I.E.L.D.", "HYDRA", "S.W.O.R.D."], "d": "EASY"}, {"q": "ウルヴァリンの本名として知られる名前は？", "a": "ローガン", "o": ["ローガン", "ビクター", "ウェイド", "ジェームズ・ローズ"], "d": "EASY"}, {"q": "『ファンタスティック・フォー』のリード・リチャーズの能力は？", "a": "身体を伸縮させる", "o": ["身体を伸縮させる", "透明になる", "炎を操る", "岩になる"], "d": "EASY"}, {"q": "ジョニー・ストームの能力は？", "a": "炎を操る", "o": ["炎を操る", "雷を操る", "氷を操る", "重力を操る"], "d": "EASY"}, {"q": "ベン・グリムの通称は？", "a": "ザ・シング", "o": ["ザ・シング", "コロッサス", "ザ・ロック", "ヘルボーイ"], "d": "EASY"}, {"q": "ニック・フューリーが眼帯をしている理由に関係する動物は？", "a": "グース", "o": ["グース", "コスモ", "ラッキー", "グルート"], "d": "NORMAL"}, {"q": "グースの正体は？", "a": "フラーケン", "o": ["フラーケン", "スクラル", "クリー", "チタウリ"], "d": "NORMAL"}, {"q": "『キャプテン・マーベル』でキャロルが関係した宇宙人勢力は？", "a": "クリー", "o": ["クリー", "スクラル", "チタウリ", "ソヴリン"], "d": "NORMAL"}, {"q": "『ブラックパンサー』でオコエが所属する組織は？", "a": "ドーラ・ミラージュ", "o": ["ドーラ・ミラージュ", "ミッドナイト・エンジェルズ", "ワカンダ・フォース", "ハンド"], "d": "NORMAL"}, {"q": "『ブラックパンサー』でティ・チャラの母親は？", "a": "ラモンダ", "o": ["ラモンダ", "ナキア", "シュリ", "オコエ"], "d": "EASY"}, {"q": "ティ・チャラの恋人は？", "a": "ナキア", "o": ["ナキア", "オコエ", "シュリ", "ラモンダ"], "d": "EASY"}, {"q": "ワカンダの国境部族を率いる人物は？", "a": "ムバク", "o": ["ムバク", "ズリ", "オコエ", "ウンジョブ"], "d": "HARD"}, {"q": "『ワカンダ・フォーエバー』で新しいブラックパンサーになるのは？", "a": "シュリ", "o": ["シュリ", "ナキア", "オコエ", "ラモンダ"], "d": "EASY"}, {"q": "『ドクター・ストレンジ』の師匠は？", "a": "エンシェント・ワン", "o": ["エンシェント・ワン", "ウォン", "モルド", "ドルマムゥ"], "d": "EASY"}, {"q": "ドルマムゥが支配する次元は？", "a": "ダーク・ディメンション", "o": ["ダーク・ディメンション", "ミラー・ディメンション", "量子領域", "ネガティブ・ゾーン"], "d": "NORMAL"}, {"q": "ウォンの役職として知られるものは？", "a": "ソーサラー・スプリーム", "o": ["ソーサラー・スプリーム", "アベンジャーズ司令官", "ワカンダ国王", "TVA長官"], "d": "NORMAL"}, {"q": "『ロキ』の時間軸を管理する3人組は？", "a": "タイムキーパーズ", "o": ["タイムキーパーズ", "エターナルズ", "ウォッチャー", "ガーディアンズ"], "d": "NORMAL"}, {"q": "多元宇宙を観察する存在は？", "a": "ウォッチャー", "o": ["ウォッチャー", "コレクター", "タイムキーパー", "エターニティ"], "d": "NORMAL"}, {"q": "MCUでマルチバースとは？", "a": "複数の宇宙・現実", "o": ["複数の宇宙・現実", "複数の石", "複数の時間だけ", "複数の基地"], "d": "EASY"}, {"q": "『アベンジャーズ』でロキが使った杖に埋め込まれていた石は？", "a": "マインド・ストーン", "o": ["マインド・ストーン", "スペース・ストーン", "パワー・ストーン", "タイム・ストーン"], "d": "NORMAL"}, {"q": "『エイジ・オブ・ウルトロン』の舞台の一つは？", "a": "ソコヴィア", "o": ["ソコヴィア", "ラトベリア", "ワカンダ", "ザンダー"], "d": "EASY"}, {"q": "ウルトロンが理想としたものは？", "a": "人類を排除して平和を実現すること", "o": ["人類を排除して平和を実現すること", "宇宙征服", "ワカンダ支配", "アスガルド復興"], "d": "NORMAL"}, {"q": "ヴィジョンが初めてムジョルニアを持ち上げた作品は？", "a": "エイジ・オブ・ウルトロン", "o": ["エイジ・オブ・ウルトロン", "アベンジャーズ", "シビル・ウォー", "インフィニティ・ウォー"], "d": "EASY"}, {"q": "エンドゲームで最終的にサノスを倒す決定的な行動をしたのは？", "a": "トニー・スターク", "o": ["トニー・スターク", "ソー", "キャプテン・アメリカ", "ドクター・ストレンジ"], "d": "EASY"}, {"q": "トニーが指を鳴らした時に使ったものは？", "a": "インフィニティ・ストーンを装着したナノ・ガントレット", "o": ["インフィニティ・ストーンを装着したナノ・ガントレット", "ムジョルニア", "ストームブレイカー", "テッセラクト"], "d": "NORMAL"}, {"q": "キャプテン・アメリカの盾を最終的に受け継いだ人物は？", "a": "サム・ウィルソン", "o": ["サム・ウィルソン", "バッキー・バーンズ", "ジョン・ウォーカー", "スコット・ラング"], "d": "EASY"}, {"q": "一時的にキャプテン・アメリカを名乗った人物は？", "a": "ジョン・ウォーカー", "o": ["ジョン・ウォーカー", "バッキー", "サム", "レマー・ホスキンス"], "d": "NORMAL"}, {"q": "『シャン・チー』でシャーリンが運営していた場所は？", "a": "格闘クラブ", "o": ["格闘クラブ", "研究所", "サーカス", "魔術学校"], "d": "NORMAL"}, {"q": "『エターナルズ』でスプライトの能力は？", "a": "幻影を作る", "o": ["幻影を作る", "雷を操る", "飛行する", "身体を伸ばす"], "d": "NORMAL"}, {"q": "『エターナルズ』でイカリスの代表的な能力は？", "a": "目からエネルギービームを出す", "o": ["目からエネルギービームを出す", "時間を止める", "金属を操る", "透明になる"], "d": "EASY"}, {"q": "『ガーディアンズ・オブ・ギャラクシー Vol.3』のヴィランは？", "a": "ハイ・エボリューショナリー", "o": ["ハイ・エボリューショナリー", "サノス", "コレクター", "エゴ"], "d": "NORMAL"}, {"q": "ロケットを作った人物は？", "a": "ハイ・エボリューショナリー", "o": ["ハイ・エボリューショナリー", "サノス", "エゴ", "コレクター"], "d": "NORMAL"}, {"q": "『ソー／ラブ＆サンダー』でジェーンが使う武器は？", "a": "ムジョルニア", "o": ["ムジョルニア", "ストームブレイカー", "ネクロソード", "ホーフンド"], "d": "EASY"}, {"q": "ゴアが使う武器は？", "a": "ネクロソード", "o": ["ネクロソード", "ムジョルニア", "ストームブレイカー", "エボニー・ブレード"], "d": "NORMAL"}, {"q": "『アントマン＆ワスプ：クアントマニア』のヴィランは？", "a": "カーン", "o": ["カーン", "ウルトロン", "ロナン", "エボニー・マウ"], "d": "EASY"}, {"q": "『シー・ハルク』の主人公の職業は？", "a": "弁護士", "o": ["弁護士", "医師", "記者", "科学者"], "d": "EASY"}, {"q": "『ホークアイ』の敵として登場する犯罪王は？", "a": "キングピン", "o": ["キングピン", "ジモ", "キルグレイヴ", "トゥームス"], "d": "NORMAL"}, {"q": "デアデビルの活動拠点として有名な地区は？", "a": "ヘルズ・キッチン", "o": ["ヘルズ・キッチン", "クイーンズ", "ハーレム", "ブルックリン"], "d": "NORMAL"}, {"q": "パニッシャーの本名は？", "a": "フランク・キャッスル", "o": ["フランク・キャッスル", "マット・マードック", "ウィルソン・フィスク", "スティーヴン・ストレンジ"], "d": "EASY"}, {"q": "『ブラック・ウィドウ』でナターシャの偽装家族の父親役は？", "a": "アレクセイ・ショスタコフ", "o": ["アレクセイ・ショスタコフ", "ドレイコフ", "ロス", "ピアース"], "d": "NORMAL"}, {"q": "レッド・ガーディアンの本名は？", "a": "アレクセイ・ショスタコフ", "o": ["アレクセイ・ショスタコフ", "イワン・ヴァンコ", "アレクサンダー・ピアース", "ハワード・スターク"], "d": "HARD"}, {"q": "キャプテン・マーベルの力に関係した石は？", "a": "スペース・ストーン", "o": ["スペース・ストーン", "タイム・ストーン", "ソウル・ストーン", "マインド・ストーン"], "d": "NORMAL"}, {"q": "『マーベルズ』でキャプテン・マーベルと共闘する2人は？", "a": "モニカ・ランボーとカマラ・カーン", "o": ["モニカ・ランボーとカマラ・カーン", "ワンダとエレーナ", "シュリとケイト", "ホープとケイト"], "d": "NORMAL"}, {"q": "『アガサ・オール・アロング』で魔女たちが進む道は？", "a": "魔女の道", "o": ["魔女の道", "魔女の輪", "暗黒街道", "セイラムの道"], "d": "EASY"}, {"q": "『デッドプール＆ウルヴァリン』で時間を管理する組織は？", "a": "TVA", "o": ["TVA", "S.H.I.E.L.D.", "HYDRA", "A.I.M."], "d": "EASY"}, {"q": "『デッドプール＆ウルヴァリン』のデッドプールの本名は？", "a": "ウェイド・ウィルソン", "o": ["ウェイド・ウィルソン", "ローガン", "サム・ウィルソン", "ジェームズ・ローズ"], "d": "EASY"}];
+const KEY="marvelTimeShockMyQuestionsV2",TOTAL=10;
+let mine=JSON.parse(localStorage.getItem(KEY)||"[]"),pool=[],i=0,score=0,streak=0,correct=0,maxStreak=0,timer=null,locked=false,mode="solo",player=1,results=[];
+const $=x=>document.getElementById(x);
+function render(){ $("count").textContent=BUILTIN.length+"問内蔵"; $("myCount").textContent=mine.length+"問"; }
+function save(){localStorage.setItem(KEY,JSON.stringify(mine));render()}
+function toggleAdd(){$("add").classList.toggle("hidden")}
+function add(){let q=$("q").value.trim(),a=$("a").value.trim(),o=$("o").value.split(",").map(x=>x.trim()).filter(Boolean);if(!q||!a||o.length<3){$("status").textContent="問題文・正解・不正解3つを入力してください";$("status").classList.remove("hidden");return}mine.push({q,a,o:[a,...o.slice(0,3)],d:"NORMAL"});save();$("q").value=$("a").value=$("o").value="";$("status").textContent="登録しました";$("status").classList.remove("hidden")}
+function home(){clearInterval(timer);$("home").classList.remove("hidden");$("game").classList.add("hidden");$("result").classList.add("hidden")}
+function start(m){mode=m;player=1;results=[];round()}
+function round(){pool=[...BUILTIN,...mine].filter(x=>mode==="easy"?x.d!=="HARD":mode==="hard"?x.d!=="EASY":true).sort(()=>Math.random()-.5).slice(0,TOTAL);i=0;score=0;streak=0;correct=0;maxStreak=0;$("home").classList.add("hidden");$("result").classList.add("hidden");$("game").classList.remove("hidden");$("player").textContent=mode==="battle"?"PLAYER "+player:"MARVEL CHALLENGER";next()}
+function next(){if(i>=TOTAL){finish();return}locked=false;let x=pool[i];$("qn").textContent=(i+1)+" / "+TOTAL;$("score").textContent=score;$("streak").textContent=streak;$("difficulty").textContent=x.d+" / 5 SEC";$("question").textContent=x.q;let c=[...x.o].sort(()=>Math.random()-.5);$("choices").innerHTML=c.map(v=>`<button class="choice">${esc(v)}</button>`).join("");[...$("choices").children].forEach(b=>b.onclick=()=>answer(b,x));startTimer()}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-
-function parseNumber(s){
- const m=String(s).replace(/,/g,"").match(/[-+]?\d+(?:\.\d+)?/);
- return m?Number(m[0]):null;
-}
-function numericDistractors(answer){
- const n=parseNumber(answer);
- if(n===null||!isFinite(n))return null;
- const original=String(answer), m=original.replace(/,/g,"").match(/[-+]?\d+(?:\.\d+)?/);
- if(!m)return null;
- const prefix=original.slice(0,m.index), suffix=original.slice(m.index+m[0].length);
- const decimals=(m[0].split(".")[1]||"").length;
- const integer=Math.abs(n)>=1 && Number.isInteger(n);
- const base=Math.max(Math.abs(n)*0.03,integer?1:Math.pow(10,-decimals));
- const vals=new Set();
- let tries=0;
- while(vals.size<3&&tries<100){
-  tries++;
-  let delta=base*(1.0+Math.random()*4.0)*(Math.random()<.5?-1:1);
-  let v=n+delta;
-  if(integer)v=Math.round(v);
-  else v=Number(v.toFixed(decimals));
-  if(v===n||v<=0)continue;
-  vals.add(v);
- }
- if(vals.size<3)return null;
- const format=v=>{
-  let s=integer?String(Math.round(v)):v.toFixed(decimals);
-  if(m[0].includes(","))s=Number(s).toLocaleString("en-US",{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
-  return prefix+s+suffix;
- };
- return [...vals].map(format);
-}
-function makeChoices(item){
- let wrong;
- if(item.type==="numeric" || (!item.type && parseNumber(item.a)!==null && (!item.o||item.o.length<3))){
-   wrong=numericDistractors(item.a);
- }
- if(!wrong){
-   const pool=Array.isArray(item.o)?item.o.filter(x=>x&&x!==item.a):[];
-   wrong=shuffle(pool).slice(0,3);
- }
- if(wrong.length<3)return null;
- return shuffle([item.a,...wrong.slice(0,3)]);
-}
-
-$("manageBtn").onclick=()=>{show("admin");renderQuestions()}
-$("backHomeBtn").onclick=()=>show("home")
-$("startBtn").onclick=startGame
-$("againBtn").onclick=startGame
-$("resultHomeBtn").onclick=()=>show("home")
-
-$("addBtn").onclick=()=>{
- const q=$("questionInput").value.trim(),a=$("answerInput").value.trim();
- const o=[1,2,3,4,5,6].map(i=>$("wrongInput"+i).value.trim()).filter(Boolean);
- const numeric=parseNumber(a)!==null;
- if(!q||!a){alert("問題文と正解を入力してください。");return}
- if(!numeric && o.length<3){alert("数値問題ではない場合、不正解候補を3つ以上入力してください。");return}
- if(new Set([a,...o]).size<Math.min(4,1+o.length)){alert("重複した選択肢があります。");return}
- questions.push({q,a,o,type:numeric?"numeric":"pool"});saveQuestions();
- ["questionInput","answerInput","wrongInput1","wrongInput2","wrongInput3","wrongInput4","wrongInput5","wrongInput6"].forEach(id=>$(id).value="");
- renderQuestions();
-}
-$("sampleBtn").onclick=()=>{questions.push(...defaultQuestions);saveQuestions();renderQuestions()}
-$("clearBtn").onclick=()=>{if(confirm("登録した問題をすべて削除しますか？")){questions=[];saveQuestions();renderQuestions()}}
-
-function renderQuestions(){
- const l=$("questionList");l.innerHTML="";
- questions.forEach((x,i)=>{
-  const mode=x.type==="numeric"||(!x.type&&parseNumber(x.a)!==null&&(!x.o||x.o.length<3))?"数値自動生成":"候補からランダム";
-  const d=document.createElement("div");d.className="qitem";
-  d.innerHTML=`<div><div>${esc(x.q)}</div><small>正解：${esc(x.a)} / ${mode}</small></div><button class="btn danger" data-i="${i}" style="min-height:40px;padding:8px 12px">削除</button>`;
-  l.appendChild(d);
- });
- l.querySelectorAll("button").forEach(b=>b.onclick=()=>{questions.splice(+b.dataset.i,1);saveQuestions();renderQuestions()});
-}
-
-async function startGame(){
- if(questions.length<10){alert("ゲームには10問以上の問題が必要です。");return}
- const usable=questions.filter(q=>makeChoices(q));
- if(usable.length<10){alert("4択を作れない問題があります。各問題に正解＋不正解候補3つ以上を登録してください。");return}
- $("countdown").classList.remove("hidden");
- for(let n=3;n>=1;n--){$("countNumber").textContent=n;beep(n===1?880:660,.13);await wait(650)}
- $("countNumber").textContent="GO!";beep(1200,.18);await wait(400);$("countdown").classList.add("hidden");
- gameQuestions=shuffle(usable).slice(0,10);current=0;score=0;results=[];show("game");nextQuestion();
-}
-function nextQuestion(){
- if(current>=10){finishGame();return}
- answered=false;$("feedback").textContent="";$("feedback").className="feedback";
- $("progressText").textContent=`${current+1} / 10`;$("scoreText").textContent=`SCORE ${score}`;
- const item=gameQuestions[current], choices=makeChoices(item);
- $("questionText").textContent=item.q;
- const grid=$("choiceGrid");grid.innerHTML="";
- choices.forEach(text=>{const b=document.createElement("button");b.className="choice";b.textContent=text;b.onclick=()=>submitAnswer(text,b);grid.appendChild(b)});
- startTimer();
-}
-function startTimer(){
- clearInterval(timerId);startTime=performance.now();$("timerBar").style.width="100%";$("timerBar").classList.remove("danger");
- timerId=setInterval(()=>{
-  const r=Math.max(0,1-(performance.now()-startTime)/5000);
-  $("timerBar").style.width=r*100+"%";if(r<.3)$("timerBar").classList.add("danger");
-  if(r<=0){clearInterval(timerId);submitAnswer(null,null,true)}
- },25);
-}
-function submitAnswer(value,button,timeout=false){
- if(answered)return;answered=true;clearInterval(timerId);
- const item=gameQuestions[current],ok=!timeout&&value===item.a,t=Math.min(5,(performance.now()-startTime)/1000);
- results.push({q:item.q,user:value||"時間切れ",a:item.a,ok,time:t});
- document.querySelectorAll(".choice").forEach(b=>b.disabled=true);
- if(timeout){
-  document.querySelectorAll(".choice").forEach(b=>{if(b.textContent===item.a)b.classList.add("timeout")});
-  $("feedback").textContent="TIME OUT!";$("feedback").className="feedback to";timeoutSound();
- }else if(ok){
-  score++;button.classList.add("correct");$("feedback").textContent="CORRECT!";$("feedback").className="feedback ok";correctSound();
- }else{
-  button.classList.add("wrong");document.querySelectorAll(".choice").forEach(b=>{if(b.textContent===item.a)b.classList.add("correct")});
-  $("feedback").textContent="INCORRECT!";$("feedback").className="feedback ng";wrongSound();
- }
- $("scoreText").textContent=`SCORE ${score}`;setTimeout(()=>{current++;nextQuestion()},550);
-}
-function finishGame(){
- show("result");$("finalScore").textContent=`${score} / 10`;
- const avg=results.reduce((s,r)=>s+r.time,0)/results.length;$("averageTime").textContent=`平均回答時間 ${avg.toFixed(2)}秒`;
- $("resultMessage").textContent=score===10?"PERFECT! 全問正解！":score>=7?"GREAT! かなりの好成績！":score>=4?"GOOD! もう一度挑戦！":"KEEP TRYING!";
- $("resultList").innerHTML=results.map((r,i)=>`<div class="result-item"><span>${i+1}. ${esc(r.q)}<br><small>回答：${esc(r.user)} / 正解：${esc(r.a)} / ${r.time.toFixed(2)}秒</small></span><b>${r.ok?"○":"×"}</b></div>`).join("");
- if(score===10){beep(880,.12);setTimeout(()=>beep(1100,.12),130);setTimeout(()=>beep(1320,.25),260)}
-}
-renderQuestions();
-</script>
-</body>
-</html>
+function startTimer(){clearInterval(timer);let t=performance.now(),end=t+5000;timer=setInterval(()=>{let r=Math.max(0,end-performance.now());$("timer").textContent=(r/1000).toFixed(1);$("elapsed").textContent=((performance.now()-t)/1000).toFixed(1)+"s";$("bar").style.width=(r/50)+"%";if(r<=0){clearInterval(timer);timeout()}},50)}
+function timeout(){if(locked)return;locked=true;streak=0;$("timer").textContent="TIME!";setTimeout(()=>{i++;next()},500)}
+function answer(btn,x){if(locked)return;locked=true;clearInterval(timer);let sec=(performance.now()-Date.now())/1000;let ok=btn.textContent===x.a;if(ok){correct++;streak++;maxStreak=Math.max(maxStreak,streak);score+=100+Math.max(0,Math.round((5-Math.min(5,sec))*20))+Math.max(0,streak-1)*25;btn.classList.add("correct");$("timer").textContent="CORRECT!"}else{streak=0;btn.classList.add("wrong");[...$("choices").children].find(b=>b.textContent===x.a)?.classList.add("correct");$("timer").textContent="WRONG"}[...$("choices").children].forEach(b=>b.disabled=true);$("score").textContent=score;$("streak").textContent=streak;setTimeout(()=>{i++;next()},650)}
+function finish(){clearInterval(timer);results.push({score,correct});if(mode==="battle"&&player===1){player=2;setTimeout(round,700);return}$("game").classList.add("hidden");$("result").classList.remove("hidden");if(mode==="battle"){let a=results[0],b=results[1],w=a.score===b.score?"DRAW":a.score>b.score?"PLAYER 1":"PLAYER 2";$("resultTitle").textContent=w==="DRAW"?"DRAW!":w+" WIN!";$("resultScore").textContent=a.score+" vs "+b.score;$("resultDetail").innerHTML=`PLAYER 1：${a.correct}/${TOTAL} 正解<br>PLAYER 2：${b.correct}/${TOTAL} 正解`;}else{$("resultTitle").textContent="RESULT";$("resultScore").textContent=score;$("resultDetail").innerHTML=`${correct}/${TOTAL} 正解<br>最高連続正解：${maxStreak}`}}
+render();
+</script></body></html>
