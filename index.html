@@ -142,7 +142,7 @@ function next(){
     // 初回だけカウントダウン中は回答をロック
     locked=true;
     firstQuestion=false;
-    countdownThenStart();
+    countdownThenStart(token);
   }else{
     // 2問目以降は即回答受付
     locked=false;
@@ -150,7 +150,7 @@ function next(){
     startTimer(token);
   }
 }
-function countdownThenStart(){
+function countdownThenStart(token=questionToken){
   clearInterval(timer);
   const el=$("countdown");
   el.className="countdown";
@@ -168,10 +168,10 @@ function countdownThenStart(){
       el.textContent="START!";
       el.classList.add("go");
       setTimeout(()=>{
+        if(token !== questionToken) return;
+
         el.classList.add("hidden");
         el.classList.remove("go");
-
-        if(token !== questionToken) return;
         locked=false;
         [...$("choices").children].forEach(b=>b.disabled=false);
         startTimer(token);
