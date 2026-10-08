@@ -17,8 +17,36 @@ button{border:0;border-radius:14px;padding:14px;font-size:16px;font-weight:800;c
 .result{text-align:center}.big{font-size:64px;font-weight:1000}.notice{padding:10px;background:#0b1220;border:1px solid #334155;border-radius:12px;margin:10px 0}
 .small{font-size:12px;color:#94a3b8}
 input{width:100%;padding:13px;margin:5px 0;border-radius:10px;border:1px solid #334155;background:#0b1220;color:#fff}
+
+/* Stage 1 presentation effects */
+.fxOverlay{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;background:rgba(5,8,15,.82);opacity:0;visibility:hidden}
+.fxOverlay.show{visibility:visible;animation:fxFadeIn .12s ease-out forwards}
+.fxOverlay.hide{animation:fxFadeOut .25s ease-in forwards}
+.fxMain{font-size:clamp(70px,20vw,190px);font-weight:1000;letter-spacing:-.04em;text-align:center;
+  text-shadow:0 0 30px rgba(255,255,255,.18);transform:scale(.65)}
+.fxOverlay.show .fxMain{animation:fxPop .45s cubic-bezier(.18,.9,.25,1.15) forwards}
+.fxOverlay.start .fxMain{color:#ef4444}
+.fxOverlay.correct .fxMain{color:#22c55e}
+.fxOverlay.wrong .fxMain,.fxOverlay.time .fxMain{color:#ef4444}
+.fxPoints{display:block;margin-top:8px;font-size:clamp(30px,8vw,72px);letter-spacing:.02em}
+.fxSub{display:block;margin-top:6px;font-size:clamp(15px,4vw,30px);font-weight:800;color:#cbd5e1}
+@keyframes fxFadeIn{to{opacity:1}}
+@keyframes fxFadeOut{to{opacity:0}}
+@keyframes fxPop{0%{transform:scale(.65);opacity:0}55%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes fxShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.timerDanger{color:#ef4444!important;animation:timerPulse .35s ease-in-out infinite alternate}
+.timerCritical{color:#ef4444!important;animation:timerCritical .18s ease-in-out infinite alternate}
+@keyframes timerPulse{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes timerCritical{from{transform:scale(1)}to{transform:scale(1.18)}}
+.progressDanger{animation:barPulse .35s ease-in-out infinite alternate}
+@keyframes barPulse{from{opacity:.75}to{opacity:1}}
 </style></head>
-<body><div class="wrap">
+<body>
+<div id="fxOverlay" class="fxOverlay">
+  <div id="fxMain" class="fxMain"></div>
+</div>
+<div class="wrap">
 <div class="logo">MARVEL <span>TIME SHOCK!</span></div>
 
 <section id="home" class="card">
@@ -76,6 +104,25 @@ let mode="solo",player=1,results=[],startAt=0,firstQuestion=true,questionToken=0
 
 const $=x=>document.getElementById(x);
 
+
+function showFx(kind, main, points="", sub="", duration=600){
+  const ov=$("fxOverlay"), el=$("fxMain");
+  clearTimeout(window.fxHideTimer);
+  ov.className="fxOverlay show "+kind;
+  el.innerHTML=esc(main)+(points?`<span class="fxPoints">${esc(points)}</span>`:"")+
+              (sub?`<span class="fxSub">${esc(sub)}</span>`:"");
+  window.fxHideTimer=setTimeout(()=>hideFx(),duration);
+}
+function hideFx(){
+  const ov=$("fxOverlay");
+  ov.classList.remove("show");
+  ov.classList.add("hide");
+  setTimeout(()=>{ov.className="fxOverlay";$("fxMain").textContent=""},260);
+}
+function resetTimerVisual(){
+  $("timer").classList.remove("timerDanger","timerCritical");
+  $("bar").classList.remove("progressDanger");
+}
 function render(){
   $("count").textContent=BUILTIN.length+"問内蔵";
   $("myCount").textContent=mine.length+"問";
@@ -184,6 +231,8 @@ function next(){
 }
 function countdownThenStart(token=questionToken){
   clearInterval(timer);
+  resetTimerVisual();
+
   const el=$("countdown");
   el.className="countdown";
   el.classList.remove("hidden");
@@ -192,6 +241,7 @@ function countdownThenStart(token=questionToken){
   el.textContent=n;
 
   const tick=()=>{
+    if(token!==questionToken) return;
     n--;
     if(n>0){
       el.textContent=n;
@@ -199,13 +249,17 @@ function countdownThenStart(token=questionToken){
     }else{
       el.textContent="START!";
       el.classList.add("go");
+
       setTimeout(()=>{
-        if(token !== questionToken) return;
+        if(token!==questionToken) return;
 
         el.classList.add("hidden");
         el.classList.remove("go");
         locked=false;
         [...$("choices").children].forEach(b=>b.disabled=false);
+
+        // Start presentation: START! overlay then the 5-second timer.
+        showFx("start","START!","", "",520);
         startTimer(token);
       },450);
     }
@@ -219,6 +273,7 @@ function esc(s){
 }
 function startTimer(token=questionToken){
   clearInterval(timer);
+  resetTimerVisual();
   startAt=performance.now();
   const end=startAt+5000;
 
@@ -235,6 +290,20 @@ function startTimer(token=questionToken){
     $("elapsed").textContent=sec.toFixed(1)+"s";
     $("bar").style.width=(r/50)+"%";
 
+    // Stage 1: tension increases in the final 2 seconds.
+    if(r<=1000){
+      $("timer").classList.remove("timerDanger");
+      $("timer").classList.add("timerCritical");
+      $("bar").classList.add("progressDanger");
+    }else if(r<=2000){
+      $("timer").classList.remove("timerCritical");
+      $("timer").classList.add("timerDanger");
+      $("bar").classList.add("progressDanger");
+    }else{
+      $("timer").classList.remove("timerDanger","timerCritical");
+      $("bar").classList.remove("progressDanger");
+    }
+
     if(r<=0){
       clearInterval(timer);
       timeout(token);
@@ -246,22 +315,26 @@ function timeout(token=questionToken){
 
   locked=true;
   clearInterval(timer);
+  resetTimerVisual();
   streak=0;
   $("timer").textContent="TIME!";
   $("elapsed").textContent="5.0s";
   [...$("choices").children].forEach(b=>b.disabled=true);
 
+  showFx("time","TIME!","","時間切れ",700);
+
   setTimeout(()=>{
     if(token!==questionToken) return;
     i++;
     next();
-  },700);
+  },850);
 }
 function answer(btn,x,token=questionToken){
   if(token!==questionToken || locked || btn.disabled) return;
 
   locked=true;
   clearInterval(timer);
+  resetTimerVisual();
 
   const sec=Math.min(5,Math.max(0,(performance.now()-startAt)/1000));
   const ok=btn.textContent===x.a;
@@ -274,16 +347,19 @@ function answer(btn,x,token=questionToken){
     const base=100;
     const speed=Math.round((5-sec)*20);
     const streakBonus=Math.max(0,streak-1)*25;
-    score+=base+speed+streakBonus;
+    const gained=base+speed+streakBonus;
+    score+=gained;
 
     btn.classList.add("correct");
     $("timer").textContent="CORRECT!";
+    showFx("correct","CORRECT!","+"+gained,sec.toFixed(1)+"秒で回答",700);
   }else{
     streak=0;
     btn.classList.add("wrong");
     const correctBtn=[...$("choices").children].find(b=>b.textContent===x.a);
     if(correctBtn) correctBtn.classList.add("correct");
     $("timer").textContent="WRONG";
+    showFx("wrong","WRONG","","正解："+x.a,700);
   }
 
   [...$("choices").children].forEach(b=>b.disabled=true);
@@ -294,7 +370,7 @@ function answer(btn,x,token=questionToken){
     if(token!==questionToken) return;
     i++;
     next();
-  },700);
+  },850);
 }
 function finish(){
   clearInterval(timer);
